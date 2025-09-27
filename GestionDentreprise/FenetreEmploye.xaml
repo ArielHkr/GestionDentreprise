@@ -4,9 +4,144 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestionDentreprise"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Tableau de bord employé" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Tableau de bord employé"
+        Height="800" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <DockPanel>
+        <!-- Barre latérale -->
+        <StackPanel DockPanel.Dock="Left" Width="220" Background="#FF421E7B" Cursor="Hand">
+            <!-- Flipper profil -->
+            <materialDesign:Flipper Height="252" Width="200" materialDesign:ElevationAssist.Elevation="Dp0">
+                <materialDesign:Flipper.FrontContent>
+                    <Grid Width="200" Height="256">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="160" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
+                            <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle" />
+                        </materialDesign:ColorZone>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="James Willock" Foreground="White"/>
+                            <Button Margin="0,4,0,0" Command="{x:Static materialDesign:Flipper.FlipCommand}" Content="EDIT" Style="{StaticResource MaterialDesignFlatButton}" />
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Flipper.FrontContent>
+                <materialDesign:Flipper.BackContent>
+                    <Grid Width="200" Height="256">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone Padding="6" Mode="SecondaryMid">
+                            <StackPanel Orientation="Horizontal">
+                                <Button HorizontalAlignment="Left" Command="{x:Static materialDesign:Flipper.FlipCommand}" Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                    <materialDesign:PackIcon Kind="ArrowLeft"/>
+                                </Button>
+                                <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="EDIT USER"/>
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+                        <Grid Grid.Row="1" Width="172" Margin="0,6,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBox Margin="0,12,0,0" materialDesign:HintAssist.Hint="First name" materialDesign:HintAssist.IsFloating="True" Text="James"/>
+                            <TextBox Grid.Row="1" Margin="0,12,0,0" materialDesign:HintAssist.Hint="Last name" materialDesign:HintAssist.IsFloating="True" Text="Willock"/>
+                            <StackPanel Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="Email Contact"/>
+                                <ToggleButton Margin="8,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="Telephone Contact"/>
+                                <ToggleButton Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+
+            <StackPanel VerticalAlignment="Bottom" Margin="10"/>
+            <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10"/>
+        </StackPanel>
+
+        <!-- Contenu principal -->
+        <DockPanel>
+            <!-- Barre supérieure -->
+            <Grid DockPanel.Dock="Top" Height="60" Background="{DynamicResource PrimaryHueLightBrush}">
+                <TextBlock Text="Tableau de bord employé" VerticalAlignment="Center" Margin="20,0,0,0"
+                           FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
+            </Grid>
+
+            <!-- Zone centrale -->
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Cartes statistiques -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                        <StackPanel>
+                            <TextBlock Text="Projets en cours" FontWeight="Bold"/>
+                            <TextBlock Text="12" FontSize="24"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                        <StackPanel>
+                            <TextBlock Text="Projets terminés" FontWeight="Bold"/>
+                            <TextBlock Text="8" FontSize="24"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                        <StackPanel>
+                            <TextBlock Text="Tâches à faire" FontWeight="Bold"/>
+                            <TextBlock Text="5" FontSize="24"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+
+                <!-- Tableau Kanban simplifié -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- À faire -->
+                    <materialDesign:Card Grid.Column="0" Margin="10" Padding="10" Cursor="Hand">
+                        <StackPanel>
+                            <TextBlock Text="À faire" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="Tâche 1"/>
+                            <TextBlock Text="Tâche 2"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- En cours -->
+                    <materialDesign:Card Grid.Column="1" Margin="10" Padding="10" Cursor="Hand">
+                        <StackPanel>
+                            <TextBlock Text="En cours" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="Tâche 3"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- Terminé -->
+                    <materialDesign:Card Grid.Column="2" Margin="10" Padding="10" Cursor="Hand">
+                        <StackPanel>
+                            <TextBlock Text="Terminé" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="Tâche 4"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </DockPanel>
 </Window>

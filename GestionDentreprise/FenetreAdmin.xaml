@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestionDentreprise"
         mc:Ignorable="d"
-        Title="Tableau de bord administrateur" Height="450" Width="800">
+        Title="Tableau de bord administrateur" Height="800" Width="1500">
     <Grid>
         
     </Grid>
