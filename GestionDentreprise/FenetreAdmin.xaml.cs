@@ -20,9 +20,39 @@ namespace GestionDentreprise
     /// </summary>
     public partial class FenetreAdmin : Window
     {
+        Administrateur administrateur;
         public FenetreAdmin(Administrateur admin)
         {
             InitializeComponent();
+            administrateur = admin;
+            ChargerTaches();
+            MettreAJourCompteurs(); 
         }
+        private void ChargerTaches()
+        {
+            var taches = administrateur.RecupererTaches();
+            foreach (var tache in taches)
+            {
+                switch (tache.Etat)
+                {
+                    case "Non commencée":
+                        TodoList.Items.Add(tache);
+                        break;
+                    case "En cours":
+                        DoingList.Items.Add(tache);
+                        break;
+                    case "Terminée":
+                        DoneList.Items.Add(tache);
+                        break;
+                }
+            }
+        }
+        private void MettreAJourCompteurs()
+        {
+            nbAFaire.Text = TodoList.Items.Count.ToString();
+            nbEncours.Text = DoingList.Items.Count.ToString();
+            nbFini.Text = DoneList.Items.Count.ToString();
+        }
+       
     }
 }
