@@ -13,64 +13,21 @@
 
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="220" Background="#FF421E7B" Cursor="Hand">
-            <materialDesign:Flipper Height="252" Width="200" materialDesign:ElevationAssist.Elevation="Dp0">
-                <materialDesign:Flipper.FrontContent>
-                    <Grid Width="200" Height="256">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="160"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
+                            <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
                             <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
                         </materialDesign:ColorZone>
-                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="James Willock" Foreground="White"/>
-                            <Button Margin="0,4,0,0" Command="{x:Static materialDesign:Flipper.FlipCommand}" Content="EDIT" Style="{StaticResource MaterialDesignFlatButton}" />
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:Flipper.FrontContent>
 
-                <materialDesign:Flipper.BackContent>
-                    <Grid Width="200" Height="256">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <materialDesign:ColorZone Padding="6" Mode="SecondaryMid">
-                            <StackPanel Orientation="Horizontal">
-                                <Button HorizontalAlignment="Left" Command="{x:Static materialDesign:Flipper.FlipCommand}" Style="{StaticResource MaterialDesignToolForegroundButton}">
-                                    <materialDesign:PackIcon Kind="ArrowLeft"/>
-                                </Button>
-                                <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="EDIT USER"/>
-                            </StackPanel>
-                        </materialDesign:ColorZone>
-                        <Grid Grid.Row="1" Width="172" Margin="0,6,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBox Margin="0,12,0,0" materialDesign:HintAssist.Hint="First name" materialDesign:HintAssist.IsFloating="True" Text="James"/>
-                            <TextBox Grid.Row="1" Margin="0,12,0,0" materialDesign:HintAssist.Hint="Last name" materialDesign:HintAssist.IsFloating="True" Text="Willock"/>
-                            <StackPanel Grid.Row="2" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center" Text="Email Contact"/>
-                                <ToggleButton Margin="8,0,0,0"/>
-                            </StackPanel>
-                            <StackPanel Grid.Row="3" Margin="0,12,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center" Text="Telephone Contact"/>
-                                <ToggleButton Margin="8,0,0,0"/>
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </materialDesign:Flipper.BackContent>
-            </materialDesign:Flipper>
+                       
+
+
+
+
 
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
-            <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10"/>
+            <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" Click="Button_Click" BorderBrush="#FF250F54"/>
         </StackPanel>
 
-        <DockPanel AllowDrop="True" x:Name="DkPanel">
+        <DockPanel AllowDrop="True" x:Name="DkPanel" Cursor="Hand">
             <Grid DockPanel.Dock="Top" Height="60" Background="{DynamicResource PrimaryHueLightBrush}">
                 <TextBlock Text="Tableau de bord employé" VerticalAlignment="Center" Margin="20,0,0,0"
                            FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>

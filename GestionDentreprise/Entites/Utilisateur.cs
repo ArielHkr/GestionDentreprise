@@ -156,7 +156,7 @@ namespace GestionDentreprise.Entites
 
         public string AfficherInfos()
         {
-            return $"Utilisateur: {Nom} {Prenom} ({Role})";
+            return $"{Prenom} {Nom} ({Role})";
         }
     }
 }

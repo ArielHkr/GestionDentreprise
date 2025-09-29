@@ -1,5 +1,6 @@
 ﻿using GestionDentreprise.Entites;
 using MySqlConnector;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ namespace GestionDentreprise
             _employe = emp;
             ChargerTaches();
             MettreAJourCompteurs();
+      
         }
 
         private void ChargerTaches()
@@ -87,12 +89,21 @@ namespace GestionDentreprise
             MettreAJourCompteurs();
         }
 
+        
+
+
 
         private void MettreAJourCompteurs()
         {
             nbAFaire.Text = TodoList.Items.Count.ToString();
             nbEncours.Text = DoingList.Items.Count.ToString();
             nbFini.Text = DoneList.Items.Count.ToString();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AfficherLesInformations fenetreInfo = new AfficherLesInformations(_employe);
+            fenetreInfo.ShowDialog();
         }
     }
 }
