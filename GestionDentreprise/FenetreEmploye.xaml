@@ -120,8 +120,6 @@
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
                                       Drop="ListView_Drop">
-                                <ListViewItem Content="Tâche 1"/>
-                                <ListViewItem Content="Tâche 2"/>
                             </ListView>
                         </StackPanel>
                     </materialDesign:Card>
@@ -136,7 +134,6 @@
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
                                       Drop="ListView_Drop">
-                                <ListViewItem Content="Tâche 3"/>
                             </ListView>
                         </StackPanel>
                     </materialDesign:Card>
@@ -151,7 +148,6 @@
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
                                       Drop="ListView_Drop">
-                                <ListViewItem Content="Tâche 4"/>
                             </ListView>
                         </StackPanel>
                     </materialDesign:Card>

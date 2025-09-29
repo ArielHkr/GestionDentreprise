@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionDentreprise.Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace GestionDentreprise
     /// </summary>
     public partial class FenetreAdmin : Window
     {
-        public FenetreAdmin()
+        public FenetreAdmin(Administrateur admin)
         {
             InitializeComponent();
         }

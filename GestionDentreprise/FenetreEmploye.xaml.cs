@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using GestionDentreprise.Entites;
+using MySqlConnector;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -6,13 +8,34 @@ namespace GestionDentreprise
 {
     public partial class FenetreEmploye : Window
     {
-        private ListViewItem? _draggedItem;
+        private Employe _employe;
 
-        public FenetreEmploye()
+        public FenetreEmploye(Employe emp)
         {
             InitializeComponent();
+            _employe = emp;
+            ChargerTaches();
             MettreAJourCompteurs();
+        }
 
+        private void ChargerTaches()
+        {
+            var taches = _employe.RecupererTaches();
+            foreach (var tache in taches)
+            {
+                switch (tache.Etat)
+                {
+                    case "Non commencée":
+                        TodoList.Items.Add(tache);
+                        break;
+                    case "En cours":
+                        DoingList.Items.Add(tache);
+                        break;
+                    case "Terminée":
+                        DoneList.Items.Add(tache);
+                        break;
+                }
+            }
         }
 
         private void ListView_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -20,52 +43,56 @@ namespace GestionDentreprise
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 var listView = sender as ListView;
-                if (listView == null) return;
-
-                var item = GetListViewItemUnderMouse(listView, e.GetPosition(listView));
-                if (item != null)
+                var tache = listView?.SelectedItem as Tache;
+                if (tache != null)
                 {
-                    _draggedItem = item;
-                    DragDrop.DoDragDrop(listView, item, DragDropEffects.Move);
+                    DragDrop.DoDragDrop(listView, tache, DragDropEffects.Move);
                 }
             }
         }
 
         private void ListView_Drop(object sender, DragEventArgs e)
         {
-            if (_draggedItem == null) return;
-
-            var sourceList = ItemsControl.ItemsControlFromItemContainer(_draggedItem) as ListView;
+            var tache = e.Data.GetData(typeof(Tache)) as Tache;
             var targetList = sender as ListView;
 
-            if (sourceList != null && targetList != null)
-            {
-                sourceList.Items.Remove(_draggedItem);
+            if (tache == null || targetList == null) return;
 
-                targetList.Items.Add(_draggedItem);
+            if (targetList.Name == "TodoList")
+                tache.Etat = "Non commencée";
+            else if (targetList.Name == "DoingList")
+                tache.Etat = "En cours";
+            else if (targetList.Name == "DoneList")
+                tache.Etat = "Terminée";
+
+            TodoList.Items.Remove(tache);
+            DoingList.Items.Remove(tache);
+            DoneList.Items.Remove(tache);
+            targetList.Items.Add(tache);
+
+            try
+            {
+                 Connexion cnx = new Connexion();
+                cnx.Open();
+                var cmd = new MySqlCommand("UPDATE Taches SET etat=@etat WHERE id_tache=@id", cnx.GetConnection());
+                cmd.Parameters.AddWithValue("@etat", tache.Etat);
+                cmd.Parameters.AddWithValue("@id", tache.IdTache);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur mise à jour BD : " + ex.Message);
             }
 
-            _draggedItem = null;
             MettreAJourCompteurs();
         }
 
-        private ListViewItem? GetListViewItemUnderMouse(ListView listView, Point position)
-        {
-            var element = listView.InputHitTest(position) as DependencyObject;
-            while (element != null && !(element is ListViewItem))
-            {
-                element = System.Windows.Media.VisualTreeHelper.GetParent(element);
-            }
 
-            return element as ListViewItem;
-
-        }
         private void MettreAJourCompteurs()
         {
-            nbAFaire.Text = $"{TodoList.Items.Count}";
-            nbEncours.Text = $"{DoingList.Items.Count}";
-            nbFini.Text = $"{DoneList.Items.Count}";
+            nbAFaire.Text = TodoList.Items.Count.ToString();
+            nbEncours.Text = DoingList.Items.Count.ToString();
+            nbFini.Text = DoneList.Items.Count.ToString();
         }
-
     }
 }

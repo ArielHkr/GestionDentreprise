@@ -1,6 +1,5 @@
 ﻿using GestionDentreprise.Entites;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace GestionDentreprise
 {
@@ -8,17 +7,18 @@ namespace GestionDentreprise
     {
         public MainWindow()
         {
+
             InitializeComponent();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUser.Text.Trim();
+            string email = txtUser.Text.Trim();
             string password = txtPassword.Password.Trim();
 
-            if (string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(email))
             {
-                MessageBox.Show("Veuillez saisir votre nom d'utilisateur.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Veuillez saisir votre email.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtUser.Focus();
                 return;
             }
@@ -30,48 +30,39 @@ namespace GestionDentreprise
                 return;
             }
 
-            if (cbAdmin.IsChecked == true)
+            Utilisateur? user = Utilisateur.SeConnecter(email, password);
+
+            if (user != null)
             {
-                Admin user = new Admin(username, password);
-                if (user.SeConnecter("Administrateur"))
+                MessageBox.Show(
+                    $"Connexion réussie !\nBienvenue {user.Nom} {user.Prenom} ({user.Role})",
+                    "Information",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+
+                if (user is Administrateur)
                 {
-                    MessageBox.Show(
-                         $"Connexion réussie en tant qu'administrateur !\nBienvenue {user.Nom}",
-                        "Information",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
-                    FenetreAdmin adminWindow = new FenetreAdmin();
+                    FenetreAdmin adminWindow = new FenetreAdmin((Administrateur)user);
                     adminWindow.Show();
-                    this.Close();
                 }
-                else
+                else if (user is Employe)
                 {
-                    AfficherErreurConnexion();
+                    FenetreEmploye employeWindow = new FenetreEmploye((Employe)user);
+                    employeWindow.Show();
                 }
+
+                this.Close();
             }
             else
             {
-                Employe user = new Employe(username, password);
-                if (user.SeConnecter("Employe"))
-                {
-                    MessageBox.Show($"Connexion réussie en tant qu'employé !\nBienvenue {user.Nom}", "Information",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                    FenetreEmploye employeWindow = new FenetreEmploye();
-                    employeWindow.Show();
-                    this.Close();
-                }
-                else
-                {
-                    AfficherErreurConnexion();
-                }
+                AfficherErreurConnexion();
             }
         }
 
         private void AfficherErreurConnexion()
         {
-            MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Email ou mot de passe incorrect", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             txtUser.Text = "";
             txtPassword.Password = "";
             txtUser.Focus();

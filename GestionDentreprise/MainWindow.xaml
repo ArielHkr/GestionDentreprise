@@ -38,8 +38,8 @@
 
             <StackPanel Grid.Row="1" Orientation="Vertical" Margin="206,10,206,9" Grid.RowSpan="2">
                 <materialDesign:PackIcon Kind="Account" Height="69" Width="257" />
-                <TextBlock Text="Nom d'utilisateur:" Margin="-3,-7,0,0"/>
-                <TextBox x:Name="txtUser"  MaxLength="20" materialDesign:HintAssist.Hint="Entrez votre nom" Width="250" BorderThickness="0,0,0,1" Margin="-3,0,0,0" />
+                <TextBlock Text="Email:" Margin="-3,-7,0,0" Width="248"/>
+                <TextBox x:Name="txtUser"  MaxLength="50" materialDesign:HintAssist.Hint="Entrez votre nom" Width="250" BorderThickness="0,0,0,1" Margin="-3,0,0,0" />
             </StackPanel>
 
             <!-- Champ mot de passe -->
