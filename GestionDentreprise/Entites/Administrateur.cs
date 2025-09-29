@@ -8,7 +8,7 @@ namespace GestionDentreprise.Entites
     public class Administrateur : Utilisateur
     {
         public Administrateur(int id, string nom, string prenom, string email, string motDePasse, string role = "Administrateur", bool actif = true, DateTime? dateEmbauche = null)
-            : base(id, nom, prenom, email, motDePasse, role, actif, dateEmbauche)
+            : base(id, nom, prenom, email, motDePasse, role, actif)
         {
         }
 
@@ -36,20 +36,10 @@ namespace GestionDentreprise.Entites
                     string email = reader.GetString("email");
                     string motDePasse = reader.GetString("mot_de_passe");
                     bool actif = reader.GetBoolean("actif");
-                    DateTime? dateEmbauche = reader.IsDBNull(reader.GetOrdinal("date_embauche"))
-                        ? null
-                        : reader.GetDateTime("date_embauche");
-
-                    liste.Add(new Employe(
-                        id: id,
-                        nom: nom,
-                        prenom: prenom,
-                        email: email,
-                        motDePasse: motDePasse,
-                        role: "Employe",
-                        actif: actif,
-                        dateEmbauche: dateEmbauche
-                    ));
+                    DateTime dateEmbauche =  reader.GetDateTime("date_embauche");
+                    Employe emp = new Employe(id, nom, prenom, email, motDePasse,"Employe", actif);
+                    emp.DateEmbauche = dateEmbauche ;
+                    liste.Add(emp);
                 }
             }
             catch (Exception ex)
@@ -99,5 +89,6 @@ namespace GestionDentreprise.Entites
 
             return liste;
         }
+
     }
 }

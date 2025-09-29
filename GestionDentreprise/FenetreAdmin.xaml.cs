@@ -53,6 +53,11 @@ namespace GestionDentreprise
             nbEncours.Text = DoingList.Items.Count.ToString();
             nbFini.Text = DoneList.Items.Count.ToString();
         }
-       
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AfficherLesInformations fenetreInfo = new AfficherLesInformations(administrateur);
+            fenetreInfo.ShowDialog();
+        }
     }
 }

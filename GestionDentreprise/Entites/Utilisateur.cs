@@ -7,18 +7,16 @@ namespace GestionDentreprise.Entites
 {
     public abstract class Utilisateur
     {
-        private int id; // nouvel attribut privé pour l'id
-        private string nom;
-        private string prenom;
-        private string email;
-        private string motDePasse;
-        private string role;
+        private int id; 
+        private string nom=default!;
+        private string prenom = default!;
+        private string email = default!;
+        private string motDePasse = default!;
+        private string role = default!;
         private bool actif;
-        private DateTime? dateEmbauche;
 
         protected Connexion cnx;
 
-        // Accesseurs en lecture/écriture
         public int Id
         {
             get => id;
@@ -83,14 +81,10 @@ namespace GestionDentreprise.Entites
             set => actif = value;
         }
 
-        public DateTime? DateEmbauche
-        {
-            get => dateEmbauche;
-            set => dateEmbauche = value;
-        }
+        public DateTime DateEmbauche { get; set; }
 
-        // Constructeur
-        protected Utilisateur(int id, string nom, string prenom, string email, string motDePasse, string role, bool actif = true, DateTime? dateEmbauche = null)
+
+        protected Utilisateur(int id, string nom, string prenom, string email, string motDePasse, string role= "Employe", bool actif = true)
         {
             Id = id;
             Nom = nom;
@@ -99,42 +93,47 @@ namespace GestionDentreprise.Entites
             MotDePasse = motDePasse;
             Role = role;
             Actif = actif;
-            DateEmbauche = dateEmbauche;
 
             cnx = new Connexion();
         }
 
-        // Méthode statique pour se connecter
         public static Utilisateur? SeConnecter(string email, string motDePasse)
         {
             Connexion cnx = new Connexion();
             try
             {
                 cnx.Open();
-                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, date_embauche, actif 
+                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role,date_embauche, actif 
                                  FROM utilisateurs 
                                  WHERE email = @Email AND mot_de_passe = @Mdp;";
 
-                using var cmd = new MySqlCommand(query, cnx.GetConnection());
+                var cmd = new MySqlCommand(query, cnx.GetConnection());
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Mdp", motDePasse);
 
-                using var reader = cmd.ExecuteReader();
+                var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     int id = reader.GetInt32("id_utilisateur");
                     string nom = reader.GetString("nom");
                     string prenom = reader.GetString("prenom");
                     string role = reader.GetString("role");
-                    DateTime? dateEmbauche = reader.IsDBNull(reader.GetOrdinal("date_embauche"))
-                        ? null
-                        : reader.GetDateTime("date_embauche");
                     bool actif = reader.GetBoolean("actif");
-
+                    DateTime date_embauche = reader.GetDateTime("date_embauche");
                     if (role == "Administrateur")
-                        return new Administrateur(id, nom, prenom, email, motDePasse, role, actif, dateEmbauche);
+                    {
+                        Administrateur admin = new Administrateur(id, nom, prenom, email, motDePasse, role, actif);
+                        admin.DateEmbauche = date_embauche;
+                        return admin;
+                    }
+                          
                     else if (role == "Employe")
-                        return new Employe(id, nom, prenom, email, motDePasse, role, actif, dateEmbauche);
+                    {
+                        Employe emp = new Employe(id, nom, prenom, email, motDePasse, role, actif);
+                        emp.DateEmbauche = date_embauche;
+                        return emp;
+
+                    }
                     else
                         return null;
                 }
@@ -154,6 +153,35 @@ namespace GestionDentreprise.Entites
 
         public abstract List<Tache> RecupererTaches();
 
+        public void MettreAJourMonProfil()
+        {
+            try
+            {
+                cnx.Open();
+
+                string query = @"UPDATE utilisateurs
+                         SET nom = @Nom,
+                             prenom = @Prenom,
+                             email = @Email
+                         WHERE id_utilisateur = @Id;";
+
+                using var cmd = new MySqlCommand(query, cnx.GetConnection());
+                cmd.Parameters.AddWithValue("@Nom", Nom);
+                cmd.Parameters.AddWithValue("@Prenom", Prenom);
+                cmd.Parameters.AddWithValue("@Email", Email);
+                cmd.Parameters.AddWithValue("@Id", Id);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la mise à jour de l'utilisateur : " + ex.Message, ex);
+            }
+            finally
+            {
+                cnx.Close();
+            }
+        }
         public string AfficherInfos()
         {
             return $"{Prenom} {Nom} ({Role})";

@@ -89,10 +89,6 @@ namespace GestionDentreprise
             MettreAJourCompteurs();
         }
 
-        
-
-
-
         private void MettreAJourCompteurs()
         {
             nbAFaire.Text = TodoList.Items.Count.ToString();

@@ -9,35 +9,31 @@
         Title="Tableau de bord employé"
         Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
+        Icon="/images/icone-gestion.ico"
         Style="{StaticResource MaterialDesignWindow}">
 
     <DockPanel>
-        <!-- Menu gauche -->
         <StackPanel DockPanel.Dock="Left" Width="220" Background="#FF421E7B">
             <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
                 <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
             </materialDesign:ColorZone>
 
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
-            <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" BorderBrush="#FF250F54"/>
+            <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" BorderBrush="#FF250F54" Click="Button_Click"/>
         </StackPanel>
 
-        <!-- Contenu principal -->
         <DockPanel>
-            <!-- En-tête -->
             <Grid DockPanel.Dock="Top" Height="60" Background="{DynamicResource PrimaryHueLightBrush}">
                 <TextBlock VerticalAlignment="Center" Margin="20,0,0,0"
                            FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"><Run Text="Tableau de bord "/><Run Language="fr-ca" Text="administrateur"/></TextBlock>
             </Grid>
 
-            <!-- Cartes statistiques et listes -->
             <Grid Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Cartes statistiques -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                     <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
                         <StackPanel>
@@ -59,7 +55,6 @@
                     </materialDesign:Card>
                 </StackPanel>
 
-                <!-- Listes des tâches -->
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

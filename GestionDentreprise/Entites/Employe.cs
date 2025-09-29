@@ -7,8 +7,8 @@ namespace GestionDentreprise.Entites
 {
     public class Employe : Utilisateur
     {
-        public Employe(int id, string nom, string prenom, string email, string motDePasse, string role = "Employe", bool actif = true, DateTime? dateEmbauche = null)
-            : base(id, nom, prenom, email, motDePasse, role, actif, dateEmbauche)
+        public Employe(int id, string nom, string prenom, string email, string motDePasse,string role, bool actif = true)
+            : base(id, nom, prenom, email, motDePasse, "Employe", actif)
         {
 
         }
@@ -53,35 +53,7 @@ namespace GestionDentreprise.Entites
 
             return liste;
         }
-        public void MettreAJourMonProfil()
-        {
-            try
-            {
-                cnx.Open();
-
-                string query = @"UPDATE utilisateurs
-                         SET nom = @Nom,
-                             prenom = @Prenom,
-                             email = @Email
-                         WHERE id_utilisateur = @Id;";
-
-                using var cmd = new MySqlCommand(query, cnx.GetConnection());
-                cmd.Parameters.AddWithValue("@Nom", Nom);
-                cmd.Parameters.AddWithValue("@Prenom", Prenom);
-                cmd.Parameters.AddWithValue("@Email", Email);
-                cmd.Parameters.AddWithValue("@Id", Id); 
-
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de la mise à jour de l'utilisateur : " + ex.Message, ex);
-            }
-            finally
-            {
-                cnx.Close();
-            }
-        }
+       
 
     }
 }

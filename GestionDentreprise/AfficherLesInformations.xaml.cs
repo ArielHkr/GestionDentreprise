@@ -7,46 +7,44 @@ namespace GestionDentreprise
 {
     public partial class AfficherLesInformations : Window
     {
-        private Employe _employe;
+        private Utilisateur utilisateur;
 
-        public AfficherLesInformations(Employe emp)
+        public AfficherLesInformations(Utilisateur user)
         {
             InitializeComponent();
-            _employe = emp;
+            utilisateur = user;
 
-            TextBoxNom.Text = _employe.Nom;
-            TextBoxPrenom.Text = _employe.Prenom;
-            TextBoxEmail.Text = _employe.Email;
-            TextBoxDateEmbauche.Text = _employe.DateEmbauche.HasValue
-                ? _employe.DateEmbauche.Value.ToShortDateString()
-                : string.Empty;
+            TextBoxNom.Text = utilisateur.Nom;
+            TextBoxPrenom.Text = utilisateur.Prenom;
+            TextBoxEmail.Text = utilisateur.Email;
+            TextBoxDateEmbauche.Text = (utilisateur.DateEmbauche).ToString("dd/MM/yyyy");
         }
 
         private void BtnModifier_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(TextBoxNom.Text))
-                    _employe.Nom = TextBoxNom.Text;
+           // try
+           // {
+           //     if (!string.IsNullOrWhiteSpace(TextBoxNom.Text))
+           //         utilisateur.Nom = TextBoxNom.Text;
 
-                if (!string.IsNullOrWhiteSpace(TextBoxPrenom.Text))
-                    _employe.Prenom = TextBoxPrenom.Text;
+           //     if (!string.IsNullOrWhiteSpace(TextBoxPrenom.Text))
+           //         utilisateur.Prenom = TextBoxPrenom.Text;
 
-                if (!string.IsNullOrWhiteSpace(TextBoxEmail.Text) &&
-                    Regex.IsMatch(TextBoxEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                {
-                    _employe.Email = TextBoxEmail.Text;
-                }
+           //     if (!string.IsNullOrWhiteSpace(TextBoxEmail.Text) &&
+           //         Regex.IsMatch(TextBoxEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+           //     {
+           //         utilisateur.Email = TextBoxEmail.Text;
+           //     }
 
-                _employe.MettreAJourMonProfil();
+           //     utilisateur.MettreAJourMonProfil();
 
-                MessageBox.Show("Informations modifiées avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-           this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur lors de la modification : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+           //     MessageBox.Show("Informations modifiées avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+           //this.Close();
+           // }
+           // catch (Exception ex)
+           // {
+           //     MessageBox.Show("Erreur lors de la modification : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+           // }
         }
 
         private void BtnFermer_Click(object sender, RoutedEventArgs e)
