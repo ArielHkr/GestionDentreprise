@@ -59,5 +59,22 @@ namespace GestionDentreprise
             AfficherLesInformations fenetreInfo = new AfficherLesInformations(administrateur);
             fenetreInfo.ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult resultat = MessageBox.Show(
+                     "Voulez-vous vraiment vous déconnecter ?",
+                       "Confirmation de déconnexion",
+                  MessageBoxButton.YesNo,
+                     MessageBoxImage.Question
+);
+
+            if (resultat == MessageBoxResult.Yes)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+        }
     }
 }

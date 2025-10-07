@@ -51,10 +51,7 @@
     MaxLength="15"               
     Margin="0,10,0,0"
     materialDesign:HintAssist.Hint="Mot de passe" Height="26"/>
-                <CheckBox x:Name="cbAdmin"
-          Content="Cochez si vous êtes administrateur "
-          IsChecked="False"
-          Margin="-32,10,10,10" HorizontalAlignment="Center"/>
+               
 
             </StackPanel>
 

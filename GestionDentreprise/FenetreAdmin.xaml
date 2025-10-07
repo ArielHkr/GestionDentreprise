@@ -20,6 +20,13 @@
 
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
             <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" BorderBrush="#FF250F54" Click="Button_Click"/>
+            <Button
+  
+  Content="Deconnexion"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+  Style="{StaticResource MaterialDesignOutlinedButton}"
+  ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDFD3F3" Height="38" Margin="0,491,0,0" Click="Button_Click_1"
+  />
         </StackPanel>
 
         <DockPanel>
@@ -65,7 +72,7 @@
                     <materialDesign:Card Grid.Column="0" Margin="10" Padding="10">
                         <StackPanel>
                             <TextBlock Text="À faire" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="TodoList" Background="Transparent" BorderThickness="0" MinHeight="300"/>
+                            <ListView x:Name="TodoList" Background="Transparent" BorderThickness="0" MinHeight="300" Cursor="Hand"/>
                         </StackPanel>
                     </materialDesign:Card>
 
