@@ -21,17 +21,20 @@ namespace GestionDentreprise
     public partial class FenetreAdmin : Window
     {
         Administrateur administrateur;
+        List<Tache> taches;
+
         public FenetreAdmin(Administrateur admin)
         {
             InitializeComponent();
             administrateur = admin;
+            MettreAJourCompteurs();
+            taches = administrateur.RecupererTaches();
             ChargerTaches();
-            MettreAJourCompteurs(); 
+
         }
         private void ChargerTaches()
         {
-            var taches = administrateur.RecupererTaches();
-            foreach (var tache in taches)
+            foreach (Tache tache in taches)
             {
                 switch (tache.Etat)
                 {
@@ -75,6 +78,74 @@ namespace GestionDentreprise
                 mainWindow.Show();
                 this.Close();
             }
+        }
+
+        private void TodoList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int index = TodoList.SelectedIndex;
+
+            if (index >= 0 && index < taches.Count)
+            {
+               Tache tache = (Tache)TodoList.SelectedItem;
+
+                MessageBox.Show(
+                    $"Titre : {tache.Titre}\n\n" +
+                    $"Description : {tache.Description}\n\n" +
+                    $"Priorité : {tache.Priorite}\n\n" +
+                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
+                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
+                    $"État : {tache.Etat}",
+                    "Détails de la tâche",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
+        }
+
+        private void DoingList_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int index = DoingList.SelectedIndex;
+
+            if (index >= 0 && index < taches.Count)
+            {
+                Tache tache = (Tache)DoingList.SelectedItem;
+
+                MessageBox.Show(
+                    $"Titre : {tache.Titre}\n\n" +
+                    $"Description : {tache.Description}\n\n" +
+                    $"Priorité : {tache.Priorite}\n\n" +
+                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
+                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
+                    $"État : {tache.Etat}",
+                    "Détails de la tâche",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
+        }
+
+        private void DoneList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int index = DoneList.SelectedIndex;
+
+            if (index >= 0 && index < taches.Count)
+            {
+                Tache tache = (Tache)DoneList.SelectedItem;
+
+
+                MessageBox.Show(
+                    $"Titre : {tache.Titre}\n\n" +
+                    $"Description : {tache.Description}\n\n" +
+                    $"Priorité : {tache.Priorite}\n\n" +
+                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
+                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
+                    $"État : {tache.Etat}",
+                    "Détails de la tâche",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
+
         }
     }
 }

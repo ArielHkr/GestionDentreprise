@@ -7,10 +7,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Icon="/images/icone-gestion.ico"
         mc:Ignorable="d"
+        WindowState="Maximized"
+
         Title="Connexion" Height="800" Width="1500"
         Style="{StaticResource MaterialDesignWindow}"
        
         WindowStartupLocation="CenterScreen">
+       
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="389*"/>

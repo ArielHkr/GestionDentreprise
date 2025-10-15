@@ -15,45 +15,10 @@ namespace GestionDentreprise.Entites
 
         public override List<Tache> RecupererTaches()
         {
-            var liste = new List<Tache>();
-            Connexion cnx = new Connexion();
-            try
-            {
-                cnx.Open();
-
-                string query = @"SELECT id_tache, titre, description, priorite, date_creation, date_limite, etat 
-                                 FROM Taches 
-                                 WHERE id_utilisateur = @IdUtilisateur;";
-
-                 var cmd = new MySqlCommand(query, cnx.GetConnection());
-                cmd.Parameters.AddWithValue("@IdUtilisateur", Id); 
-
-                 var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    int idTache = reader.GetInt32("id_tache");
-                    string titre = reader.GetString("titre");
-                    string description = reader.IsDBNull(reader.GetOrdinal("description")) ? "" : reader.GetString("description");
-                    string priorite = reader.IsDBNull(reader.GetOrdinal("priorite")) ? "Moyenne" : reader.GetString("priorite");
-                    DateTime dateCreation = reader.GetDateTime("date_creation");
-                    DateTime? dateLimite = reader.IsDBNull(reader.GetOrdinal("date_limite")) ? null : reader.GetDateTime("date_limite");
-                    string etat = reader.GetString("etat");
-
-                    liste.Add(new Tache(idTache, titre, description, priorite, dateCreation, dateLimite, etat,this.Id));
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de la récupération des tâches : " + ex.Message);
-            }
-            finally
-            {
-                cnx.Close();
-            }
-
+            var liste = ChargerDonnees.ObtenirLesTaches(Id);
             return liste;
         }
-       
+        
 
     }
 }

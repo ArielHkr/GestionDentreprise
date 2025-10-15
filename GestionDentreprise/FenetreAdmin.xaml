@@ -10,6 +10,8 @@
         Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
         Icon="/images/icone-gestion.ico"
+        WindowState="Maximized"
+
         Style="{StaticResource MaterialDesignWindow}">
 
     <DockPanel>
@@ -72,21 +74,27 @@
                     <materialDesign:Card Grid.Column="0" Margin="10" Padding="10">
                         <StackPanel>
                             <TextBlock Text="À faire" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="TodoList" Background="Transparent" BorderThickness="0" MinHeight="300" Cursor="Hand"/>
+                            <ListView x:Name="TodoList" Background="Transparent" BorderThickness="0" MinHeight="300" Cursor="Hand" MouseDoubleClick="TodoList_MouseDoubleClick" >
+
+                            </ListView>
                         </StackPanel>
                     </materialDesign:Card>
 
                     <materialDesign:Card Grid.Column="1" Margin="10" Padding="10">
                         <StackPanel>
                             <TextBlock Text="En cours" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="DoingList" Background="Transparent" BorderThickness="0" MinHeight="300"/>
+                            <ListView x:Name="DoingList" Background="Transparent" BorderThickness="0" MinHeight="300" MouseDoubleClick="DoingList_DoubleClick">
+
+                            </ListView>
                         </StackPanel>
                     </materialDesign:Card>
 
                     <materialDesign:Card Grid.Column="2" Margin="10" Padding="10">
                         <StackPanel>
                             <TextBlock Text="Terminé" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="DoneList" Background="Transparent" BorderThickness="0" MinHeight="300"/>
+                            <ListView x:Name="DoneList" Background="Transparent" BorderThickness="0" MinHeight="300" MouseDoubleClick="DoneList_MouseDoubleClick">
+
+                            </ListView>
                         </StackPanel>
                     </materialDesign:Card>
                 </Grid>

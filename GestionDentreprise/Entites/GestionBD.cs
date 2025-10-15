@@ -3,14 +3,14 @@ using System;
 
 namespace GestionDentreprise
 {
-    public class Connexion
+    public class GestionBD
     {
         private readonly string connectionString =
             "Server=localhost;Database=gestiontachesentreprise;User ID=root;Password=MariaDB;";
 
         private MySqlConnection connection;
 
-        public Connexion()
+        public GestionBD()
         {
             connection = new MySqlConnection(connectionString);
         }

@@ -10,6 +10,7 @@
         Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
         Icon="/images/icone-gestion.ico"
+        WindowState="Maximized"
 
         Style="{StaticResource MaterialDesignWindow}">
 
@@ -85,7 +86,8 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
-                                      Drop="ListView_Drop">
+                                      Drop="ListView_Drop" MouseDoubleClick="TodoList_MouseDoubleClick">
+                                <ListViewItem Selected="ListViewItem_Selected">Faire les courses</ListViewItem>
                             </ListView>
                         </StackPanel>
                     </materialDesign:Card>
@@ -99,7 +101,7 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
-                                      Drop="ListView_Drop">
+                                      Drop="ListView_Drop" MouseDoubleClick="DoingList_MouseDoubleClick">
                             </ListView>
                         </StackPanel>
                     </materialDesign:Card>
@@ -113,7 +115,7 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
-                                      Drop="ListView_Drop">
+                                      Drop="ListView_Drop" MouseDoubleClick="DoneList_MouseDoubleClick">
                             </ListView>
                         </StackPanel>
                     </materialDesign:Card>
