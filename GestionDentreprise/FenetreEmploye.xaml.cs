@@ -134,8 +134,8 @@ namespace GestionDentreprise
 
             if (index >= 0 && index < taches.Count)
             {
-                var tache = taches[index];
-              
+                Tache tache = (Tache)TodoList.SelectedItem;
+
                 MessageBox.Show(
                     $"Titre : {tache.Titre}\n\n" +
                     $"Description : {tache.Description}\n\n" +
@@ -150,13 +150,13 @@ namespace GestionDentreprise
             }
         }
 
-        private void DoingList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DoingList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int index = TodoList.SelectedIndex;
+            int index = DoingList.SelectedIndex;
 
             if (index >= 0 && index < taches.Count)
             {
-                var tache = taches[index];
+                Tache tache = (Tache)DoingList.SelectedItem;
 
                 MessageBox.Show(
                     $"Titre : {tache.Titre}\n\n" +
@@ -174,11 +174,12 @@ namespace GestionDentreprise
 
         private void DoneList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int index = TodoList.SelectedIndex;
+            int index = DoneList.SelectedIndex;
 
             if (index >= 0 && index < taches.Count)
             {
-                var tache = taches[index];
+                Tache tache = (Tache)DoneList.SelectedItem;
+
 
                 MessageBox.Show(
                     $"Titre : {tache.Titre}\n\n" +
@@ -192,6 +193,7 @@ namespace GestionDentreprise
                     MessageBoxImage.Information
                 );
             }
+
         }
     }
 }
