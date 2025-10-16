@@ -147,5 +147,11 @@ namespace GestionDentreprise
             }
 
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            GererLesTaches fenetreTaches = new GererLesTaches(administrateur);
+            fenetreTaches.ShowDialog();
+        }
     }
 }
