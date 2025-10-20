@@ -30,7 +30,8 @@ namespace GestionDentreprise
             taches=admin.RecupererTaches();
             for(int i = 0; i < taches.Count; i++)
             {
-                lstTaches.Items.Add(taches[i]);
+                if(taches[i].IdUtilisateur is null)
+                   lstTaches.Items.Add(taches[i]);
             }
             employes= admin.RecupererTousLesEmployes();
             for (int i = 0; i < employes.Count; i++)
@@ -56,13 +57,6 @@ namespace GestionDentreprise
                 this.Close();
             }
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
         private void BtnTerminer_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

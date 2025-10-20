@@ -11,7 +11,7 @@ namespace GestionDentreprise.Entites
         private DateTime dateCreation;
         private DateTime? dateLimite;
         private string etat= "Non commencée";
-        private int idUtilisateur=0;
+        private int? idUtilisateur;
 
         public int IdTache { get => idTache; set => idTache = value; }
         public string Titre { get => titre; set => titre = value; }
@@ -20,12 +20,9 @@ namespace GestionDentreprise.Entites
         public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
         public DateTime? DateLimite { get => dateLimite; set => dateLimite = value; }
         public string Etat { get => etat; set => etat = value; }
-        public int IdUtilisateur { get => idUtilisateur; set => idUtilisateur = value; }
+        public int? IdUtilisateur { get => idUtilisateur; set => idUtilisateur = value; }
 
-        public Tache()
-        {
 
-        }
         public Tache( string titre, string description, string priorite,
                       DateTime? dateLimite)
         {
@@ -36,7 +33,7 @@ namespace GestionDentreprise.Entites
         }
         public override string ToString()
         {
-            return $"{Titre} (Priorité: {Priorite})";
+            return $"{Titre} (Priorité: {Priorite} {IdUtilisateur})";
         }
     }
 }

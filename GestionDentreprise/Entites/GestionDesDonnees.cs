@@ -94,7 +94,7 @@ namespace GestionDentreprise.Entites
             }
         }
 
-        public static List<Tache> ObtenirLesTaches( int Id=0 )
+        public static List<Tache> ObtenirLesTaches( int? Id )
         {
             var liste = new List<Tache>();
 
@@ -120,10 +120,15 @@ namespace GestionDentreprise.Entites
                         string description = reader.IsDBNull(reader.GetOrdinal("description")) ? "" : reader.GetString("description");
                         string priorite = reader.IsDBNull(reader.GetOrdinal("priorite")) ? "Moyenne" : reader.GetString("priorite");
                         DateTime dateCreation = reader.GetDateTime("date_creation");
-                        DateTime? dateLimite = reader.IsDBNull(reader.GetOrdinal("date_limite")) ? null : reader.GetDateTime("date_limite");
+                        DateTime dateLimite = reader.GetDateTime("date_limite");
                         string etat = reader.GetString("etat");
+                        int IdUtilisateur = reader.GetInt32("id_utilisateur");
 
-                        liste.Add(new Tache(titre, description, priorite, dateLimite));
+                        Tache tache = new Tache(titre, description, priorite, dateLimite);
+                        tache.IdTache = idTache;
+                        tache.DateCreation = dateCreation;
+                        tache.Etat = etat;
+                        liste.Add(tache);
                     }
                 }
                 else
@@ -142,14 +147,23 @@ namespace GestionDentreprise.Entites
                         string priorite = reader.IsDBNull(reader.GetOrdinal("priorite")) ? "Moyenne" : reader.GetString("priorite");
                         DateTime dateCreation = reader.GetDateTime("date_creation");
                         DateTime dateLimite =  reader.GetDateTime("date_limite");
-                        int idUtilisateur = reader.GetInt32("id_utilisateur");
                         string etat = reader.GetString("etat");
+                        int? IdUtilisateur;
+
+                        if (reader["id_utilisateur"] == DBNull.Value)
+                        {
+                            IdUtilisateur = null;
+                        }
+                        else
+                        {
+                            IdUtilisateur = Convert.ToInt32(reader["id_utilisateur"]);
+                        }
 
                         Tache tache = new Tache(titre, description, priorite, dateLimite);
                         tache.IdTache = idTache;
                         tache.DateCreation = dateCreation;
                         tache.Etat = etat;
-                        tache.IdUtilisateur = idUtilisateur;
+                        tache.IdUtilisateur = IdUtilisateur;
                         liste.Add(tache);
                     }
                 }
@@ -173,7 +187,7 @@ namespace GestionDentreprise.Entites
             try
             {
                 string query = @"
-                   INSERT INTO Taches ( titre, description, priorite, date_limite, etat)
+                   INSERT INTO Taches ( titre, description, priorite, date_limite, etat,)
                    VALUES ( @titre, @description, @priorite, @date_limite, @etat)";
 
 

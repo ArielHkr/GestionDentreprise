@@ -45,7 +45,14 @@ namespace GestionDentreprise
 
             if (!dpDateLimite.SelectedDate.HasValue)
             {
+
                 MessageBox.Show("Veuillez choisir une date limite.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                dpDateLimite.Focus();
+                return;
+            }
+            if (dpDateLimite.SelectedDate.Value.Date <= DateTime.Today)
+            {
+                MessageBox.Show("La date limite doit être supérieure à aujourd'hui.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
                 dpDateLimite.Focus();
                 return;
             }

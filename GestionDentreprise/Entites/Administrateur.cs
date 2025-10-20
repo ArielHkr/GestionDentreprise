@@ -19,7 +19,7 @@ namespace GestionDentreprise.Entites
         }
         public override List<Tache> RecupererTaches()
         {
-            return GestionDesDonnees.ObtenirLesTaches();
+            return GestionDesDonnees.ObtenirLesTaches(0);
         }
         public void AjouterUneTache(Tache tache)
         {

@@ -8,7 +8,8 @@
         Title="Ajouter une tâche"
         Width="500" Height="600"
         WindowStartupLocation="CenterScreen"
-        Background="#FAFAFA">
+        Background="#FAFAFA"
+        Icon="/images/icone-gestion.ico">
 
     <Grid Margin="30,30,30,-6">
         <Grid.RowDefinitions>
