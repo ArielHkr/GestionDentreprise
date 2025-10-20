@@ -20,9 +20,24 @@ namespace GestionDentreprise
     /// </summary>
     public partial class GererLesTaches : Window
     {
+        List<Tache> taches = new List<Tache>();
+        List<Employe> employes = new List<Employe>();
+        Administrateur admin;
         public GererLesTaches(Administrateur admin)
         {
+            this.admin = admin;
             InitializeComponent();
+            taches=admin.RecupererTaches();
+            for(int i = 0; i < taches.Count; i++)
+            {
+                lstTaches.Items.Add(taches[i]);
+            }
+            employes= admin.RecupererTousLesEmployes();
+            for (int i = 0; i < employes.Count; i++)
+            {
+                lstEmployes.Items.Add(employes[i]);
+            }
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -47,9 +62,21 @@ namespace GestionDentreprise
 
         }
 
-        private void BtnAttribuerTache_Click(object sender, RoutedEventArgs e)
+
+        private void BtnTerminer_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void BtnAttribuerTache_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnCreerTache_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterTache ajouterTache = new AjouterTache(admin);
+            ajouterTache.ShowDialog();
         }
     }
 }

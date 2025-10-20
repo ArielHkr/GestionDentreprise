@@ -10,17 +10,22 @@ namespace GestionDentreprise.Entites
         public Administrateur(int id, string nom, string prenom, string email, string motDePasse, string role = "Administrateur", bool actif = true, DateTime? dateEmbauche = null)
             : base(id, nom, prenom, email, motDePasse, role, actif)
         {
+
         }
 
         public List<Employe> RecupererTousLesEmployes()
         {
-            return ChargerDonnees.ObtenirLesEmployes();
+            return GestionDesDonnees.ObtenirLesEmployes();
         }
         public override List<Tache> RecupererTaches()
         {
-            return ChargerDonnees.ObtenirLesTaches();
+            return GestionDesDonnees.ObtenirLesTaches();
         }
-     
+        public void AjouterUneTache(Tache tache)
+        {
+            GestionDesDonnees.AjouterUneTache(tache);
+        }
+        
 
     }
 }

@@ -38,19 +38,12 @@
                                FontSize="22" FontWeight="Bold" 
                                Margin="0,0,0,10"
                                Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
-                    <ListView x:Name="EmployeList"
+                    <ListView x:Name="lstEmployes"
                               Height="500"
                               BorderThickness="0"
                               Background="Transparent"
                               materialDesign:ColorZoneAssist.Mode="PrimaryLight" BorderBrush="#FF421E7B">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Text="{Binding Nom}" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Poste}" FontSize="12" Foreground="Gray"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                     
                     </ListView>
                 </StackPanel>
             </materialDesign:Card>
@@ -63,20 +56,11 @@
                                FontSize="22" FontWeight="Bold" 
                                Margin="0,0,0,10"
                                Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
-                    <ListView x:Name="TacheList"
+                    <ListView x:Name="lstTaches"
                               Height="500"
                               BorderThickness="0"
                               Background="Transparent">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Text="{Binding Titre}" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Description}" 
-                                               FontSize="12" Foreground="Gray" 
-                                               TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                     
                     </ListView>
                 </StackPanel>
             </materialDesign:Card>
@@ -91,8 +75,8 @@
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Background="#FF421E7B"
                             Foreground="White"
-                            Click="BtnCreerTache_Click"
-                            Margin="0,0,0,20"/>
+                            
+                            Margin="0,0,0,20" Click="BtnCreerTache_Click"/>
 
                     <Button x:Name="BtnAttribuerTache"
                             Content="Attribuer une tâche"
@@ -108,7 +92,7 @@
           Style="{StaticResource MaterialDesignRaisedButton}"
           Background="#FF421E7B"
           Foreground="#FFFAFAFA"
-          Click="BtnAttribuerTache_Click"/>
+          Click="BtnTerminer_Click"/>
                 </StackPanel>
             </materialDesign:Card>
         </Grid>

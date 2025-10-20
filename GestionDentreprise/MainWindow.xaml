@@ -66,6 +66,7 @@
                         Width="120" Height="35"
                         Click="btnLogin_Click" Margin="0,-82,0,0"/>
             </StackPanel>
+            <Button Content="Backdoor" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_2" Margin="206,280,236,145" Grid.Row="3" />
         </Grid>
     </Grid>
 

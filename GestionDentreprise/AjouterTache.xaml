@@ -1,0 +1,61 @@
+﻿<Window x:Class="GestionDentreprise.AjouterTache"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Ajouter une tâche"
+        Width="500" Height="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#FAFAFA">
+
+    <Grid Margin="30,30,30,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Nouvelle tâche"
+                   FontSize="24" FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0 10 0 20"/>
+
+        <!-- Remplacement de Spacing par Margin sur chaque contrôle -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+
+            <TextBox x:Name="txtTitre"
+                     materialDesign:HintAssist.Hint="Titre"
+                     Margin="0,5,0,5" />
+
+            <TextBox x:Name="txtDescription"
+                     materialDesign:HintAssist.Hint="Description"
+                     Margin="0,5,0,5"
+                     AcceptsReturn="True"
+                     Height="49"
+                     TextWrapping="Wrap" />
+
+            <ComboBox x:Name="cmbPriorite"
+                      materialDesign:HintAssist.Hint="Priorité"
+                      Margin="0,5,0,5">
+                <ComboBoxItem Content="Basse"/>
+                <ComboBoxItem Content="Moyenne"/>
+                <ComboBoxItem Content="Haute"/>
+            </ComboBox>
+
+            <DatePicker x:Name="dpDateLimite"
+                        materialDesign:HintAssist.Hint="Date limite"
+                        Margin="0,5,0,5"/>
+
+            <Button Content="Ajouter la tâche"
+                    Margin="0,15,0,0"
+                    Height="40"
+                    FontWeight="Bold" Click="BtnAjout_Click"
+                    />
+            <Button Content="Annuler"
+     FontWeight="Bold"
+      Click="BtnAnnuler_Click" Margin="0,9,0,0"/>
+        </StackPanel>
+       
+    </Grid>
+</Window>

@@ -27,10 +27,9 @@ namespace GestionDentreprise
         {
             InitializeComponent();
             administrateur = admin;
-            MettreAJourCompteurs();
             taches = administrateur.RecupererTaches();
             ChargerTaches();
-
+            MettreAJourCompteurs();
         }
         private void ChargerTaches()
         {
@@ -62,6 +61,7 @@ namespace GestionDentreprise
             AfficherLesInformations fenetreInfo = new AfficherLesInformations(administrateur);
             fenetreInfo.ShowDialog();
         }
+
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

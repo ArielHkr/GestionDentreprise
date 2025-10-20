@@ -150,7 +150,7 @@ namespace GestionDentreprise
             }
         }
 
-        private void DoingList_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void DoingList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int index = DoingList.SelectedIndex;
 

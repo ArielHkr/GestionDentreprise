@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestionDentreprise.Entites
 {
-    public static class ChargerDonnees
+    public static class GestionDesDonnees
     {
         public static Utilisateur? ObtenirUtilisateur(string email, string motDePasse)
         {
@@ -123,7 +123,7 @@ namespace GestionDentreprise.Entites
                         DateTime? dateLimite = reader.IsDBNull(reader.GetOrdinal("date_limite")) ? null : reader.GetDateTime("date_limite");
                         string etat = reader.GetString("etat");
 
-                        liste.Add(new Tache(idTache, titre, description, priorite, dateCreation, dateLimite, etat, Id));
+                        liste.Add(new Tache(titre, description, priorite, dateLimite));
                     }
                 }
                 else
@@ -141,11 +141,16 @@ namespace GestionDentreprise.Entites
                         string description = reader.IsDBNull(reader.GetOrdinal("description")) ? "" : reader.GetString("description");
                         string priorite = reader.IsDBNull(reader.GetOrdinal("priorite")) ? "Moyenne" : reader.GetString("priorite");
                         DateTime dateCreation = reader.GetDateTime("date_creation");
-                        DateTime? dateLimite = reader.IsDBNull(reader.GetOrdinal("date_limite")) ? null : reader.GetDateTime("date_limite");
-                        int IdTache = reader.GetInt32("id_utilisateur");
+                        DateTime dateLimite =  reader.GetDateTime("date_limite");
+                        int idUtilisateur = reader.GetInt32("id_utilisateur");
                         string etat = reader.GetString("etat");
 
-                        liste.Add(new Tache(idTache, titre, description, priorite, dateCreation, dateLimite, etat, IdTache));
+                        Tache tache = new Tache(titre, description, priorite, dateLimite);
+                        tache.IdTache = idTache;
+                        tache.DateCreation = dateCreation;
+                        tache.Etat = etat;
+                        tache.IdUtilisateur = idUtilisateur;
+                        liste.Add(tache);
                     }
                 }
             }
@@ -162,9 +167,35 @@ namespace GestionDentreprise.Entites
 
         }
 
+        public static void AjouterUneTache(Tache tache)
+        {
+            GestionBD cnx = new GestionBD();
+            try
+            {
+                string query = @"
+                   INSERT INTO Taches ( titre, description, priorite, date_limite, etat)
+                   VALUES ( @titre, @description, @priorite, @date_limite, @etat)";
+
+
+                cnx.Open();
+                MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
+                cmd.Parameters.AddWithValue("@titre", tache.Titre);
+                cmd.Parameters.AddWithValue("@description", tache.Description);
+                cmd.Parameters.AddWithValue("@priorite", tache.Priorite);
+                cmd.Parameters.AddWithValue("@date_limite", tache.DateLimite);
+                cmd.Parameters.AddWithValue("@etat", tache.Etat);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex) {
+                Console.WriteLine("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                cnx.Close();
+            }
+        }
         public static List<Employe> ObtenirLesEmployes() {
             List<Employe> liste = new List<Employe>();
-
             GestionBD cnx = new GestionBD();
             cnx.Open();
             try
@@ -174,8 +205,8 @@ namespace GestionDentreprise.Entites
                                  FROM utilisateurs 
                                  WHERE role = 'Employe';";
 
-                using MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
-                using MySqlDataReader reader = cmd.ExecuteReader();
+                 MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
+                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {

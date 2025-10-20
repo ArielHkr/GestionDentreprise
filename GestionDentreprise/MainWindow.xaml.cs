@@ -67,5 +67,14 @@ namespace GestionDentreprise
             txtPassword.Password = "";
             txtUser.Focus();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Utilisateur? user = Utilisateur.SeConnecter("admin@entreprise.com", "admin123");
+            
+            FenetreAdmin adminWindow = new FenetreAdmin((Administrateur)user);
+            adminWindow.Show();
+            this.Close();
+        }
     }
 }

@@ -62,8 +62,6 @@ namespace GestionDentreprise.Entites
             get => motDePasse;
             set
             {
-                if (string.IsNullOrWhiteSpace(value) || value.Length < 6 || value.Length > 100 || !Regex.IsMatch(value, @"^(?=.*[A-Za-z])(?=.*\d).+$"))
-                    throw new ArgumentException("Mot de passe invalide.");
                 motDePasse = value;
             }
         }
@@ -95,7 +93,7 @@ namespace GestionDentreprise.Entites
 
         public static Utilisateur? SeConnecter(string email, string motDePasse)
         {
-           Utilisateur? utilisateur = ChargerDonnees.ObtenirUtilisateur(email, motDePasse);
+           Utilisateur? utilisateur = GestionDesDonnees.ObtenirUtilisateur(email, motDePasse);
             return utilisateur;
         }
 
@@ -103,11 +101,15 @@ namespace GestionDentreprise.Entites
 
         public void MettreAJourMonProfil()
         {
-          ChargerDonnees.MettreAJourUtilisateur(Nom, Prenom, Email, Id);
+          GestionDesDonnees.MettreAJourUtilisateur(Nom, Prenom, Email, Id);
         }
         public string AfficherInfos()
         {
             return $"{Prenom} {Nom} ({Role})";
+        }
+        public override string ToString()
+        {
+            return $"{Prenom} {Nom}";
         }
     }
 }
