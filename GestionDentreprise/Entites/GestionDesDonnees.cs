@@ -103,7 +103,7 @@ namespace GestionDentreprise.Entites
             {
                 cnx.Open();
 
-                if (Id > 0)
+                if ( Id != null && Id > 0)
                 {
                     string query = @"SELECT id_tache, titre, description, priorite, date_creation, date_limite, etat 
                                  FROM Taches 
@@ -122,12 +122,12 @@ namespace GestionDentreprise.Entites
                         DateTime dateCreation = reader.GetDateTime("date_creation");
                         DateTime dateLimite = reader.GetDateTime("date_limite");
                         string etat = reader.GetString("etat");
-                        int IdUtilisateur = reader.GetInt32("id_utilisateur");
 
                         Tache tache = new Tache(titre, description, priorite, dateLimite);
                         tache.IdTache = idTache;
                         tache.DateCreation = dateCreation;
                         tache.Etat = etat;
+                        tache.IdUtilisateur = Id;
                         liste.Add(tache);
                     }
                 }
