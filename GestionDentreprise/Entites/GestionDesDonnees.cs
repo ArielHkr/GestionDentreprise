@@ -181,6 +181,39 @@ namespace GestionDentreprise.Entites
 
         }
 
+
+        public static void AttribuerUneTache(Tache tache, Employe employe)
+        {
+            GestionBD cnx = new GestionBD();
+
+            try
+            {
+                string query = @"
+            UPDATE Taches
+            SET id_utilisateur = @id_u
+            WHERE id_tache = @id_tache";
+
+                cnx.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@id_u", employe.Id);
+                    cmd.Parameters.AddWithValue("@id_tache", tache.IdTache);
+
+                    int lignesAffectees = cmd.ExecuteNonQuery();
+         
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de l'attribution : " + ex.Message);
+            }
+            finally
+            {
+                cnx.Close();
+            }
+        }
+
         public static void AjouterUneTache(Tache tache)
         {
             GestionBD cnx = new GestionBD();

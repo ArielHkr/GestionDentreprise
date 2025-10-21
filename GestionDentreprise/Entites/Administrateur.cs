@@ -25,6 +25,10 @@ namespace GestionDentreprise.Entites
         {
             GestionDesDonnees.AjouterUneTache(tache);
         }
+        public void AttribuerUneTache(Tache tache, Employe employe)
+        {
+            GestionDesDonnees.AttribuerUneTache(tache, employe);
+        }
         
 
     }

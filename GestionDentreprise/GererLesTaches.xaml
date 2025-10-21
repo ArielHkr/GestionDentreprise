@@ -52,10 +52,10 @@
                                  materialDesign:ElevationAssist.Elevation="Dp2"
                                  Background="{DynamicResource MaterialDesignPaper}">
                 <StackPanel>
-                    <TextBlock Text="🗂️ Tâches"
+                    <TextBlock
                                FontSize="22" FontWeight="Bold" 
                                Margin="0,0,0,10"
-                               Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
+                               Foreground="{DynamicResource PrimaryHueDarkBrush}"><Run Text="🗂️ Tâches non-attribu"/><Run Language="en-ca" Text="ées"/></TextBlock>
                     <ListView x:Name="lstTaches"
                               Height="500"
                               BorderThickness="0"
