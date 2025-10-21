@@ -29,7 +29,6 @@ namespace GestionDentreprise
             this.admin = admin;
             InitializeComponent();
             taches=admin.RecupererTaches();
-            lstTaches.Items.Clear();
 
             for (int i = 0; i < taches.Count; i++)
             {
@@ -92,7 +91,6 @@ namespace GestionDentreprise
             try
             {
                 admin.AttribuerUneTache(tache, employe);
-                this.Close();
                 MessageBox.Show("Tâche attribuée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                
             }
@@ -100,9 +98,13 @@ namespace GestionDentreprise
             {
                 MessageBox.Show("Erreur lors de l'attribution : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-
-            this.Close();
+            tache.IdUtilisateur = employe.Id;
+            lstTaches.Items.Clear();
+            for (int i = 0; i < taches.Count; i++)
+            {
+                if (taches[i].IdUtilisateur is null)
+                    lstTaches.Items.Add(taches[i]);
+            }
             
         }
 
