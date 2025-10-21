@@ -42,7 +42,7 @@
                               Height="500"
                               BorderThickness="0"
                               Background="Transparent"
-                              materialDesign:ColorZoneAssist.Mode="PrimaryLight" BorderBrush="#FF421E7B">
+                              materialDesign:ColorZoneAssist.Mode="PrimaryLight" BorderBrush="#FF421E7B" MouseDoubleClick="AffichageEmploye_MouseDoubleClick">
                      
                     </ListView>
                 </StackPanel>
@@ -59,7 +59,7 @@
                     <ListView x:Name="lstTaches"
                               Height="500"
                               BorderThickness="0"
-                              Background="Transparent">
+                              Background="Transparent" MouseDoubleClick="AfficherDetailsTache_MouseDoubleClick">
                      
                     </ListView>
                 </StackPanel>

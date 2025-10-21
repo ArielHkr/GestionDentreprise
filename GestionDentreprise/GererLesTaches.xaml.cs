@@ -1,6 +1,7 @@
 ﻿using GestionDentreprise.Entites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,9 @@ namespace GestionDentreprise
             this.admin = admin;
             InitializeComponent();
             taches=admin.RecupererTaches();
-            for(int i = 0; i < taches.Count; i++)
+            lstTaches.Items.Clear();
+
+            for (int i = 0; i < taches.Count; i++)
             {
                 if(taches[i].IdUtilisateur is null)
                    lstTaches.Items.Add(taches[i]);
@@ -89,18 +92,18 @@ namespace GestionDentreprise
             try
             {
                 admin.AttribuerUneTache(tache, employe);
+                this.Close();
                 MessageBox.Show("Tâche attribuée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+               
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erreur lors de l'attribution : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            lstTaches.Items.Clear();
-            for (int i = 0; i < taches.Count; i++)
-            {
-                if (taches[i].IdUtilisateur is null)
-                    lstTaches.Items.Add(taches[i]);
-            }
+            
+
+            this.Close();
+            
         }
 
 
@@ -108,6 +111,43 @@ namespace GestionDentreprise
         {
             AjouterTache ajouterTache = new AjouterTache(admin);
             ajouterTache.ShowDialog();
+        }
+
+        private void AffichageEmploye_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Employe employe = (Employe)lstEmployes.SelectedItem;
+            MessageBox.Show(
+      $"Employé : {employe.Nom} {employe.Prenom}\n" +
+      $"Email : {employe.Email}\n" +
+      $"Date d'embauche : {employe.DateEmbauche:d}\n\n",
+      "Détails de l'employé",
+      MessageBoxButton.OK,
+      MessageBoxImage.Information
+  );
+
+
+        }
+
+        private void AfficherDetailsTache_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int index = lstTaches.SelectedIndex;
+
+            if (index >= 0 && index < taches.Count)
+            {
+                Tache tache = (Tache)lstTaches.SelectedItem;
+
+                MessageBox.Show(
+                    $"Titre : {tache.Titre}\n\n" +
+                    $"Description : {tache.Description}\n\n" +
+                    $"Priorité : {tache.Priorite}\n\n" +
+                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
+                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
+                    $"État : {tache.Etat}",
+                    "Détails de la tâche",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
         }
     }
 }
