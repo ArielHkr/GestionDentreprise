@@ -75,7 +75,7 @@ namespace GestionDentreprise
             if (resultat == MessageBoxResult.Yes)
             {
                 MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                mainWindow.ShowDialog();
                 this.Close();
             }
         }
@@ -87,8 +87,8 @@ namespace GestionDentreprise
             if (index >= 0 && index < taches.Count)
             {
                Tache tache = (Tache)TodoList.SelectedItem;
-
-                MessageBox.Show(
+               
+               MessageBox.Show(
                     $"Titre : {tache.Titre}\n\n" +
                     $"Description : {tache.Description}\n\n" +
                     $"Priorité : {tache.Priorite}\n\n" +
@@ -151,7 +151,11 @@ namespace GestionDentreprise
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             GererLesTaches fenetreTaches = new GererLesTaches(administrateur);
-            fenetreTaches.ShowDialog();
+            bool? resultat =fenetreTaches.ShowDialog();
+            if (resultat != null && resultat == true)
+            {
+                Button_Click_2(sender, e);
+            }
         }
     }
 }

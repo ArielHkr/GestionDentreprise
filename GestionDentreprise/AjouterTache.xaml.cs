@@ -61,8 +61,9 @@ namespace GestionDentreprise
                 
 
             administrateur.AjouterUneTache(tache);
-
             MessageBox.Show("Tâche ajoutée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            DialogResult = true;
             this.Close();
         }
 

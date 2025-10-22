@@ -9,7 +9,7 @@ namespace GestionDentreprise.Entites
         private string description;
         private string priorite;
         private DateTime dateCreation;
-        private DateTime? dateLimite;
+        private DateTime dateLimite;
         private string etat= "Non commencée";
         private int? idUtilisateur;
 
@@ -18,13 +18,13 @@ namespace GestionDentreprise.Entites
         public string Description { get => description; set => description = value; }
         public string Priorite { get => priorite; set => priorite = value; }
         public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
-        public DateTime? DateLimite { get => dateLimite; set => dateLimite = value; }
+        public DateTime DateLimite { get => dateLimite; set => dateLimite = value; }
         public string Etat { get => etat; set => etat = value; }
         public int? IdUtilisateur { get => idUtilisateur; set => idUtilisateur = value; }
 
 
         public Tache( string titre, string description, string priorite,
-                      DateTime? dateLimite)
+                      DateTime dateLimite)
         {
             this.titre = titre;
             this.description = description;

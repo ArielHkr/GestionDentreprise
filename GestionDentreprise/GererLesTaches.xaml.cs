@@ -112,7 +112,13 @@ namespace GestionDentreprise
         private void BtnCreerTache_Click(object sender, RoutedEventArgs e)
         {
             AjouterTache ajouterTache = new AjouterTache(admin);
-            ajouterTache.ShowDialog();
+            bool? resultat = ajouterTache.ShowDialog();
+            if(resultat!= null && resultat== true)
+            {
+                DialogResult = true;
+
+                this.Close();
+            }
         }
 
         private void AffichageEmploye_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -220,7 +220,7 @@ namespace GestionDentreprise.Entites
             try
             {
                 string query = @"
-                   INSERT INTO Taches ( titre, description, priorite, date_limite, etat,)
+                   INSERT INTO Taches ( titre, description, priorite, date_limite, etat)
                    VALUES ( @titre, @description, @priorite, @date_limite, @etat)";
 
 
@@ -229,12 +229,14 @@ namespace GestionDentreprise.Entites
                 cmd.Parameters.AddWithValue("@titre", tache.Titre);
                 cmd.Parameters.AddWithValue("@description", tache.Description);
                 cmd.Parameters.AddWithValue("@priorite", tache.Priorite);
-                cmd.Parameters.AddWithValue("@date_limite", tache.DateLimite);
+
+                
+                cmd.Parameters.AddWithValue("@date_limite", tache.DateLimite.Date);
                 cmd.Parameters.AddWithValue("@etat", tache.Etat);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex) {
-                Console.WriteLine("Erreur : " + ex.Message);
+                throw new Exception("Erreur : " + ex.Message);
             }
             finally
             {
