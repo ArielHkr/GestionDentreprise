@@ -21,18 +21,19 @@ namespace GestionDentreprise
     public partial class FenetreAdmin : Window
     {
         Administrateur administrateur;
-        List<Tache> taches;
+        List<Tache> taches = new List<Tache>();
 
         public FenetreAdmin(Administrateur admin)
         {
             InitializeComponent();
             administrateur = admin;
-            taches = administrateur.RecupererTaches();
             ChargerTaches();
             MettreAJourCompteurs();
         }
         private void ChargerTaches()
         {
+            taches = administrateur.RecupererTaches();
+
             foreach (Tache tache in taches)
             {
                 switch (tache.Etat)
@@ -155,6 +156,10 @@ namespace GestionDentreprise
             if (resultat != null && resultat == true)
             {
                 Button_Click_2(sender, e);
+            }
+            else
+            {
+                ChargerTaches();
             }
         }
     }
