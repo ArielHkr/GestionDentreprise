@@ -15,9 +15,11 @@ namespace GestionDentreprise
 
         public FenetreEmploye(Employe emp)
         {
+
             InitializeComponent();
-            _employe = emp;
             MettreAJourCompteurs();
+
+            _employe = emp;
             taches = _employe.RecupererTaches();
             ChargerTaches();
 
@@ -193,6 +195,11 @@ namespace GestionDentreprise
                     MessageBoxImage.Information
                 );
             }
+
+        }
+
+        private void Btn_GestionRH(object sender, RoutedEventArgs e)
+        {
 
         }
     }

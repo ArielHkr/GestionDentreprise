@@ -16,11 +16,11 @@
 
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Width="220" Background="#FF421E7B" Cursor="Hand">
-                            <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
-                            <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
-                        </materialDesign:ColorZone>
+            <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
+                <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
+            </materialDesign:ColorZone>
 
-                       
+
 
 
 
@@ -28,6 +28,7 @@
 
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
             <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" Click="Button_Click" BorderBrush="#FF250F54"/>
+            <Button Content="Resources humaines" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Click="Btn_GestionRH" BorderBrush="#FF250F54" Width="238"/>
             <Button
 
 Content="Deconnexion"
@@ -86,9 +87,7 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
-                                      Drop="ListView_Drop" MouseDoubleClick="TodoList_MouseDoubleClick">
-                                <ListViewItem Selected="ListViewItem_Selected">Faire les courses</ListViewItem>
-                            </ListView>
+                                      Drop="ListView_Drop" MouseDoubleClick="TodoList_MouseDoubleClick"/>
                         </StackPanel>
                     </materialDesign:Card>
 

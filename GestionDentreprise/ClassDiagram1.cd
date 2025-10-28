@@ -1,2 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GestionDentreprise.Entites.Administrateur">
+    <Position X="3.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAACAAAAAAAAAAAAAAAAgACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entites\Administrateur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestionDentreprise.Entites.Employe">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entites\Employe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestionDentreprise.GestionBD" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAgAAAABAAAAAAAAAAAAAAAAABCAAAA=</HashCode>
+      <FileName>Entites\GestionBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestionDentreprise.Entites.GestionDesDonnees">
+    <Position X="9.25" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAAAAAEAAEAAAAAAAEAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entites\GestionDesDonnees.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestionDentreprise.Entites.Tache" Collapsed="true">
+    <Position X="6" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAABAAAAgYAEEICABAAAAAAAAAAAAAICAAADAoAA=</HashCode>
+      <FileName>Entites\Tache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestionDentreprise.Entites.Utilisateur" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAaAAAAECACAAAkECAAoBAwACAAIAAAACAAAAAAAgA=</HashCode>
+      <FileName>Entites\Utilisateur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
