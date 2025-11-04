@@ -1,12 +1,104 @@
 ﻿<Window x:Class="GestionDentreprise.GestionRH"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GestionDentreprise"
-        mc:Ignorable="d"
-        Title="GestionRH" Height="450" Width="800">
-    <Grid>
-        
+        Title="Gestion RH"
+        Height="800" Width="1400"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Zone de recherche -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="txtRecherche"
+                     Grid.Column="0"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"
+                     ToolTip="Rechercher un employé"/>
+
+            <Button Grid.Column="1"
+                    Content="Rechercher"
+                    Margin="0,0,10,0"
+                    Click="RechercherEmploye_Click"/>
+
+            <ListBox Grid.Column="2"
+                     x:Name="lstRechercheEmployes"
+                     MinHeight="100" MaxHeight="200"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <TextBlock
+                FontSize="20" FontWeight="Bold"
+                           Grid.ColumnSpan="3" Margin="0,0,544,73"><Run Language="en-ca" Text="Rechercher un "/><Run Text="employé"/></TextBlock>
+        </Grid>
+
+        <!-- Contenu principal -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Section gauche : infos employé -->
+            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                <TextBlock Text="Gestion des employés"
+                           FontSize="20" FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <TextBlock Text="Liste des employés" Margin="0,5,0,0"/>
+                <ComboBox x:Name="cbEmployes"
+                          Width="250"
+                          Margin="0,0,0,10"
+                          ToolTip="Liste des employés"/>
+
+                <StackPanel>
+                    <TextBlock Text="Nom" Margin="0,5,0,0"/>
+                    <TextBox x:Name="txtNom" Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Prénom" Margin="0,5,0,0"/>
+                    <TextBox x:Name="txtPrenom" Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Email" Margin="0,5,0,0"/>
+                    <TextBox x:Name="txtEmail" Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Date d'embauche" Margin="0,5,0,0"/>
+                    <DatePicker x:Name="dpEmbauche" Margin="0,0,0,5"/>
+
+                    <CheckBox Content="Actif" x:Name="chkActif" Margin="0,10"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                    <Button Content="Embaucher" Width="100" Margin="0,0,10,0"
+                            Click="Embaucher_Click"/>
+                    <Button Content="Virer" Width="80" Margin="0,0,10,0"
+                            Click="Virer_Click"/>
+                    <Button Content="Mise à pied" Width="120"
+                            Click="MiseAPied_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Section droite : liste de tâches -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Tâches de l’employé"
+                           FontSize="20" FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+                <ListBox x:Name="lstTaches"
+                         MinHeight="200" MaxHeight="300"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" Height="249" Margin="0,-9,0,6" Width="559" HorizontalAlignment="Left"/>
+                <TextBlock
+                    FontSize="20" FontWeight="Bold"
+                           ><Run Language="en-ca" Text="Employé recherché"/></TextBlock>
+                <ListBox x:Name="lstEmployeRecherche"
+                    MinHeight="200" MaxHeight="300"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto" Height="249" Width="559" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
