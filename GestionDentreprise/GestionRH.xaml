@@ -11,7 +11,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Zone de recherche -->
         <Grid Grid.Row="0" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -39,14 +38,12 @@
                            Grid.ColumnSpan="3" Margin="0,0,544,73"><Run Language="en-ca" Text="Rechercher un "/><Run Text="employé"/></TextBlock>
         </Grid>
 
-        <!-- Contenu principal -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Section gauche : infos employé -->
             <StackPanel Grid.Column="0" Margin="0,0,20,0">
                 <TextBlock Text="Gestion des employés"
                            FontSize="20" FontWeight="Bold"
@@ -84,7 +81,6 @@
                 </StackPanel>
             </StackPanel>
 
-            <!-- Section droite : liste de tâches -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Tâches de l’employé"
                            FontSize="20" FontWeight="Bold"
