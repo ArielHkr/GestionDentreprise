@@ -23,6 +23,7 @@
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
             <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" BorderBrush="#FF250F54" Click="Button_Click"/>
             <Button Content="Gestion des taches" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_2" />
+            <Button Content="Gestion RH" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_3" />
             <Button
   
   Content="Deconnexion"

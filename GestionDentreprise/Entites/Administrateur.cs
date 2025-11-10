@@ -30,6 +30,18 @@ namespace GestionDentreprise.Entites
             GestionDesDonnees.AttribuerUneTache(tache, employe);
         }
         
+        public void EmbaucherEmploye(Employe employe)
+        {
 
+        }
+
+        public void VirerEmploye(Employe employe)
+        {
+
+        }
+        public List<Utilisateur> Rechercher(string Chaine)
+        {
+            return GestionDesDonnees.RechercherUtilisateur(Chaine);
+        }
     }
 }

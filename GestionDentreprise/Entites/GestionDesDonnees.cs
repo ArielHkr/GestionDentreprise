@@ -281,5 +281,52 @@ namespace GestionDentreprise.Entites
             }
             return liste;
         }
+
+
+        public static List<Utilisateur> RechercherUtilisateur(string chaine)
+        {
+            var resultats = new List<Utilisateur>();
+            var cnx = new GestionBD();
+
+            try
+            {
+                cnx.Open();
+                var cmd = new MySqlCommand(
+                    "SELECT * FROM utilisateurs WHERE nom LIKE CONCAT('%', @Chaine, '%') OR prenom LIKE CONCAT('%', @Chaine, '%');",
+                    cnx.GetConnection());
+                cmd.Parameters.AddWithValue("@Chaine", chaine);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("id_utilisateur");
+                    string nom = reader.GetString("nom");
+                    string prenom = reader.GetString("prenom");
+                    string email = reader.GetString("email");
+                    string mdp = reader.GetString("mot_de_passe");
+                    string role = reader.GetString("role");
+                    bool actif = reader.GetBoolean("actif");
+
+                    Utilisateur u;
+                    if (role == "Administrateur")
+                    {
+                        u = new Administrateur(id, nom, prenom, email, mdp, role, actif);
+                    }
+                    else
+                    {
+                        u = new Employe(id, nom, prenom, email, mdp, role, actif);
+                    }
+
+                    resultats.Add(u);
+                }
+            }
+            finally
+            {
+                cnx.Close();
+            }
+
+            return resultats;
+        }
+
     }
 }

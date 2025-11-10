@@ -162,5 +162,12 @@ namespace GestionDentreprise
                 ChargerTaches();
             }
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+            GestionRH gestionRH = new GestionRH(administrateur);
+            gestionRH.ShowDialog();
+        }
     }
 }

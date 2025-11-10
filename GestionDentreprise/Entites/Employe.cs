@@ -15,8 +15,7 @@ namespace GestionDentreprise.Entites
 
         public override List<Tache> RecupererTaches()
         {
-            var liste = GestionDesDonnees.ObtenirLesTaches(Id);
-            return liste;
+            return GestionDesDonnees.ObtenirLesTaches(Id);
         }
         
 
