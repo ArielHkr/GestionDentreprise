@@ -112,14 +112,9 @@ namespace GestionDentreprise
         private void AffichageEmploye_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Employe employe = (Employe)lstEmployes.SelectedItem;
-            MessageBox.Show(
-      $"Employé : {employe.Nom} {employe.Prenom}\n" +
-      $"Email : {employe.Email}\n" +
-      $"Date d'embauche : {employe.DateEmbauche:d}\n\n",
-      "Détails de l'employé",
-      MessageBoxButton.OK,
-      MessageBoxImage.Information
-  );
+            AfficherLesInformations afficherLesInformations = new AfficherLesInformations(employe);
+            afficherLesInformations.ShowDialog();
+  
 
 
         }
@@ -132,17 +127,8 @@ namespace GestionDentreprise
             {
                 Tache tache = (Tache)lstTaches.SelectedItem;
 
-                MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                AfficherTache afficherTache = new AfficherTache(tache);
+                afficherTache.ShowDialog();
             }
         }
     }
