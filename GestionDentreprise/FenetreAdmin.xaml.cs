@@ -28,6 +28,11 @@ namespace GestionDentreprise
             InitializeComponent();
             administrateur = admin;
             ChargerTaches();
+            Employe? emp = GestionDesDonnees.ObtenirEmployeDuMoisBD();
+            if (emp != null) {
+                txtNom_EMois.Text = emp.ToString();
+                txtPoints.Text = emp.Points.ToString();
+            }
             MettreAJourCompteurs();
         }
         private void ChargerTaches()

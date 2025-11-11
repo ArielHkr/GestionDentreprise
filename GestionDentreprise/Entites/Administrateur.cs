@@ -41,7 +41,7 @@ namespace GestionDentreprise.Entites
         }
         public List<Utilisateur> Rechercher(string Chaine)
         {
-            return GestionDesDonnees.RechercherUtilisateur(Chaine);
+            return GestionDesDonnees.RechercherEmployw(Chaine);
         }
     }
 }

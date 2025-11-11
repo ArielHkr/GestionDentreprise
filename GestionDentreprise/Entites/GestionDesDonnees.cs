@@ -304,7 +304,7 @@ namespace GestionDentreprise.Entites
         }
 
 
-        public static List<Utilisateur> RechercherUtilisateur(string chaine)
+        public static List<Utilisateur> RechercherEmployw(string chaine)
         {
             var resultats = new List<Utilisateur>();
             var cnx = new GestionBD();
@@ -394,6 +394,46 @@ namespace GestionDentreprise.Entites
             catch (Exception ex)
             {
                 throw new Exception("Erreur lors de l'embauche de l'employé : " + ex.Message);
+            }
+            finally
+            {
+                cnx.Close();
+            }
+        }
+
+        public static Employe? ObtenirEmployeDuMoisBD()
+        {
+            GestionBD cnx = new GestionBD();
+            try
+            {
+                cnx.Open();
+                string query = @"
+            SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, actif, date_embauche, points
+            FROM utilisateurs
+            WHERE role = 'Employe' AND actif = 1
+            ORDER BY points DESC
+            LIMIT 1;";
+
+                MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    int id = reader.GetInt32("id_utilisateur");
+                    string nom = reader.GetString("nom");
+                    string prenom = reader.GetString("prenom");
+                    string email = reader.GetString("email");
+                    string mdp = reader.GetString("mot_de_passe");
+                    bool actif = reader.GetBoolean("actif");
+                    DateTime dateEmbauche = reader.GetDateTime("date_embauche");
+                    int points = reader.GetInt32("points");
+
+                    Employe emp = new Employe(id, nom, prenom, email, mdp, "Employe", actif, points);
+                    emp.DateEmbauche = dateEmbauche;
+                    return emp;
+                }
+
+                return null;
             }
             finally
             {
