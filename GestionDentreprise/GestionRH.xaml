@@ -34,14 +34,14 @@
                 <TextBlock Text="Liste des employés"/>
                 <ComboBox x:Name="cbEmployes" Width="200" Margin="0,5,0,10" ToolTip="Liste des employés" SelectionChanged="cbEmployes_SelectionChanged"/>
                 <StackPanel>
-                    <TextBlock Text="Nom" Margin="0,3,0,0"/>
-                    <TextBox x:Name="txtNom" Margin="0,0,0,3"/>
-                    <TextBlock Text="Prénom" Margin="0,3,0,0"/>
-                    <TextBox x:Name="txtPrenom" Margin="0,0,0,3"/>
-                    <TextBlock Text="Email" Margin="0,3,0,0"/>
-                    <TextBox x:Name="txtEmail" Margin="0,0,0,3"/>
-                    <TextBlock Text="Date d'embauche" Margin="0,3,0,0"/>
-                    <DatePicker x:Name="dpEmbauche" Margin="0,0,0,5"/>
+                    <TextBlock Text="Nom" IsEnabled="False" Margin="0,3,0,0"/>
+                    <TextBox x:Name="txtNom" IsEnabled="False" Margin="0,0,0,3"/>
+                    <TextBlock Text="Prénom" IsEnabled="False" Margin="0,3,0,0"/>
+                    <TextBox x:Name="txtPrenom" IsEnabled="False" Margin="0,0,0,3"/>
+                    <TextBlock Text="Email" IsEnabled="False" Margin="0,3,0,0"/>
+                    <TextBox x:Name="txtEmail" IsEnabled="False" Margin="0,0,0,3"/>
+                    <TextBlock Text="Date d'embauche" IsEnabled="False" Margin="0,3,0,0"/>
+                    <DatePicker x:Name="dpEmbauche" IsEnabled="False"  Margin="0,0,0,5"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                     <Button Content="Embaucher" Width="114" Margin="0,0,5,0" Click="Button_Click_1"/>

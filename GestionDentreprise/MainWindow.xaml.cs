@@ -68,13 +68,13 @@ namespace GestionDentreprise
             txtUser.Focus();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            Utilisateur? user = Utilisateur.SeConnecter("admin@entreprise.com", "admin123");
+        //private void Button_Click_2(object sender, RoutedEventArgs e)
+        //{
+        //    Utilisateur? user = Utilisateur.SeConnecter("admin@entreprise.com", "admin123");
 
-            FenetreAdmin adminWindow = new FenetreAdmin((Administrateur)user);
-            adminWindow.Show();
-            this.Close();
-        }
+        //    FenetreAdmin adminWindow = new FenetreAdmin((Administrateur)user);
+        //    adminWindow.Show();
+        //    this.Close();
+        //}
     }
 }

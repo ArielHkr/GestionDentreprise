@@ -46,7 +46,6 @@
                 <TextBox x:Name="txtUser"  MaxLength="50" materialDesign:HintAssist.Hint="Entrez votre nom" Width="250" BorderThickness="0,0,0,1" Margin="-3,0,0,0" />
             </StackPanel>
 
-            <!-- Champ mot de passe -->
             <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,8,0,0">
                 <TextBlock Text="Mot de passe:" Width="250"/>
                 <PasswordBox
@@ -59,14 +58,13 @@
 
             </StackPanel>
 
-            <!-- Boutons -->
             <StackPanel Grid.Row="3" Orientation="Horizontal"
                         HorizontalAlignment="Center" Margin="0,105,0,244" Width="120">
                 <Button x:Name="btnLogin" Content="Se connecter"
                         Width="120" Height="35"
                         Click="btnLogin_Click" Margin="0,-82,0,0"/>
             </StackPanel>
-            <Button Content="Backdoor" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_2" Margin="206,280,236,145" Grid.Row="3" />
+            <!--<Button Content="Backdoor" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_2" Margin="206,280,236,145" Grid.Row="3" />-->
         </Grid>
     </Grid>
 
