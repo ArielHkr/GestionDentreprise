@@ -31,7 +31,7 @@ namespace GestionDentreprise
             Employe? emp = GestionDesDonnees.ObtenirEmployeDuMoisBD();
             if (emp != null) {
                 txtNom_EMois.Text = emp.ToString();
-                txtPoints.Text = emp.Points.ToString();
+                txtPoints.Text = emp.Points.ToString()+ "pts";
             }
             MettreAJourCompteurs();
         }
