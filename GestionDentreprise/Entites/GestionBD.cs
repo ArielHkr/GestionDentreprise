@@ -1,5 +1,4 @@
 ﻿using MySqlConnector;
-using System;
 
 namespace GestionDentreprise
 {

@@ -1,17 +1,6 @@
 ﻿using GestionDentreprise.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GestionDentreprise
 {
@@ -29,9 +18,10 @@ namespace GestionDentreprise
             administrateur = admin;
             ChargerTaches();
             Employe? emp = GestionDesDonnees.ObtenirEmployeDuMoisBD();
-            if (emp != null) {
+            if (emp != null)
+            {
                 txtNom_EMois.Text = emp.ToString();
-                txtPoints.Text = emp.Points.ToString()+ "pts";
+                txtPoints.Text = emp.Points.ToString() + "pts";
             }
             MettreAJourCompteurs();
         }
@@ -92,19 +82,10 @@ namespace GestionDentreprise
 
             if (index >= 0 && index < taches.Count)
             {
-               Tache tache = (Tache)TodoList.SelectedItem;
-               
-               MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                Tache tache = (Tache)TodoList.SelectedItem;
+
+                AfficherTache afficher_Tache = new AfficherTache(tache);
+                afficher_Tache.ShowDialog();
             }
         }
 
@@ -116,17 +97,8 @@ namespace GestionDentreprise
             {
                 Tache tache = (Tache)DoingList.SelectedItem;
 
-                MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                AfficherTache afficher_Tache = new AfficherTache(tache);
+                afficher_Tache.ShowDialog();
             }
         }
 
@@ -139,17 +111,8 @@ namespace GestionDentreprise
                 Tache tache = (Tache)DoneList.SelectedItem;
 
 
-                MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                AfficherTache afficher_Tache = new AfficherTache(tache);
+                afficher_Tache.ShowDialog();
             }
 
         }
@@ -157,7 +120,7 @@ namespace GestionDentreprise
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             GererLesTaches fenetreTaches = new GererLesTaches(administrateur);
-            bool? resultat =fenetreTaches.ShowDialog();
+            bool? resultat = fenetreTaches.ShowDialog();
             if (resultat != null && resultat == true)
             {
                 Button_Click_2(sender, e);

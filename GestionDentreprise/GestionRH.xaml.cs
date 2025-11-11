@@ -1,5 +1,4 @@
 ﻿using GestionDentreprise.Entites;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,7 +13,7 @@ namespace GestionDentreprise
         {
             InitializeComponent();
             Admin = admin;
-            utilisateurs = Admin.RecupererTousLesEmployes(); 
+            utilisateurs = Admin.RecupererTousLesEmployes();
             foreach (var emp in utilisateurs)
                 cbEmployes.Items.Add(emp);
         }

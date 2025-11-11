@@ -1,5 +1,4 @@
 ﻿using GestionDentreprise.Entites;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -127,17 +126,8 @@ namespace GestionDentreprise
         {
             if (listView.SelectedItem is Tache tache)
             {
-                MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                AfficherTache afficher_Tache = new AfficherTache(tache);
+                afficher_Tache.ShowDialog();
             }
         }
     }

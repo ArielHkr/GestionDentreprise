@@ -1,9 +1,4 @@
-﻿using GestionDentreprise.Entites;
-using MySqlConnector;
-using System;
-using System.Collections.Generic;
-
-namespace GestionDentreprise.Entites
+﻿namespace GestionDentreprise.Entites
 {
     public class Employe : Utilisateur
     {
@@ -20,8 +15,8 @@ namespace GestionDentreprise.Entites
         {
             return GestionDesDonnees.ObtenirLesTaches(Id);
         }
-        
-       
+
+
 
     }
 }

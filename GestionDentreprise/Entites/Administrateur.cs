@@ -1,9 +1,4 @@
-﻿using GestionDentreprise.Entites;
-using MySqlConnector;
-using System;
-using System.Collections.Generic;
-
-namespace GestionDentreprise.Entites
+﻿namespace GestionDentreprise.Entites
 {
     public class Administrateur : Utilisateur
     {
@@ -29,7 +24,7 @@ namespace GestionDentreprise.Entites
         {
             GestionDesDonnees.AttribuerUneTache(tache, employe);
         }
-        
+
         public void EmbaucherEmploye(Employe employe)
         {
             GestionDesDonnees.EmbaucherEmploye(employe);

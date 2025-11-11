@@ -1,5 +1,4 @@
 ﻿using GestionDentreprise.Entites;
-using System;
 using System.Windows;
 
 namespace GestionDentreprise

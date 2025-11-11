@@ -1,9 +1,4 @@
 ﻿using MySqlConnector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GestionDentreprise.Entites
 {
@@ -17,7 +12,7 @@ namespace GestionDentreprise.Entites
                 cnx.Open();
                 string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role,date_embauche, actif 
                                  FROM utilisateurs 
-                                 WHERE email = @Email AND mot_de_passe = @Mdp;";
+                                 WHERE email = @Email AND mot_de_passe = @Mdp AND actif=1;";
 
                 var cmd = new MySqlCommand(query, cnx.GetConnection());
                 cmd.Parameters.AddWithValue("@Email", email);
@@ -39,7 +34,7 @@ namespace GestionDentreprise.Entites
                         return admin;
                     }
 
-                    else 
+                    else
                     {
                         Employe emp = new Employe(id, nom, prenom, email, motDePasse, role, actif);
                         emp.DateEmbauche = date_embauche;
@@ -63,7 +58,7 @@ namespace GestionDentreprise.Entites
         }
 
 
-        public static void MettreAJourUtilisateur(string Nom, string Prenom,string Email,int Id)
+        public static void MettreAJourUtilisateur(string Nom, string Prenom, string Email, int Id)
         {
             GestionBD cnx = new GestionBD();
             try
@@ -94,7 +89,7 @@ namespace GestionDentreprise.Entites
             }
         }
 
-        public static List<Tache> ObtenirLesTaches( int? Id )
+        public static List<Tache> ObtenirLesTaches(int? Id)
         {
             var liste = new List<Tache>();
 
@@ -103,7 +98,7 @@ namespace GestionDentreprise.Entites
             {
                 cnx.Open();
 
-                if ( Id != null && Id > 0)
+                if (Id != null && Id > 0)
                 {
                     string query = @"SELECT id_tache, titre, description, priorite, date_creation, date_limite, etat 
                                  FROM Taches 
@@ -146,7 +141,7 @@ namespace GestionDentreprise.Entites
                         string description = reader.IsDBNull(reader.GetOrdinal("description")) ? "" : reader.GetString("description");
                         string priorite = reader.IsDBNull(reader.GetOrdinal("priorite")) ? "Moyenne" : reader.GetString("priorite");
                         DateTime dateCreation = reader.GetDateTime("date_creation");
-                        DateTime dateLimite =  reader.GetDateTime("date_limite");
+                        DateTime dateLimite = reader.GetDateTime("date_limite");
                         string etat = reader.GetString("etat");
                         int? IdUtilisateur;
 
@@ -201,7 +196,7 @@ namespace GestionDentreprise.Entites
                     cmd.Parameters.AddWithValue("@id_tache", tache.IdTache);
 
                     int lignesAffectees = cmd.ExecuteNonQuery();
-         
+
                 }
             }
             catch (Exception ex)
@@ -230,12 +225,13 @@ namespace GestionDentreprise.Entites
                 cmd.Parameters.AddWithValue("@description", tache.Description);
                 cmd.Parameters.AddWithValue("@priorite", tache.Priorite);
 
-                
+
                 cmd.Parameters.AddWithValue("@date_limite", tache.DateLimite.Date);
                 cmd.Parameters.AddWithValue("@etat", tache.Etat);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw new Exception("Erreur : " + ex.Message);
             }
             finally
@@ -267,7 +263,7 @@ namespace GestionDentreprise.Entites
                     string mdp = reader.GetString("mot_de_passe");
                     bool actif = reader.GetBoolean("actif");
                     DateTime dateEmbauche = reader.GetDateTime("date_embauche");
-                    int points = reader.GetInt32("points"); 
+                    int points = reader.GetInt32("points");
 
                     Employe emp = new Employe(id, nom, prenom, email, mdp, "Employe", actif, points);
                     emp.DateEmbauche = dateEmbauche;
@@ -313,7 +309,7 @@ namespace GestionDentreprise.Entites
             {
                 cnx.Open();
                 var cmd = new MySqlCommand(
-                    "SELECT * FROM utilisateurs WHERE nom LIKE CONCAT('%', @Chaine, '%') OR prenom LIKE CONCAT('%', @Chaine, '%');",
+                    "SELECT * FROM utilisateurs WHERE actif = 1  AND (nom LIKE CONCAT('%', @Chaine, '%') OR prenom LIKE CONCAT('%', @Chaine, '%'));",
                     cnx.GetConnection());
                 cmd.Parameters.AddWithValue("@Chaine", chaine);
 

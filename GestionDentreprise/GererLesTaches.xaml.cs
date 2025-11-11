@@ -1,18 +1,6 @@
 ﻿using GestionDentreprise.Entites;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GestionDentreprise
 {
@@ -28,14 +16,14 @@ namespace GestionDentreprise
         {
             this.admin = admin;
             InitializeComponent();
-            taches=admin.RecupererTaches();
+            taches = admin.RecupererTaches();
 
             for (int i = 0; i < taches.Count; i++)
             {
-                if(taches[i].IdUtilisateur is null)
-                   lstTaches.Items.Add(taches[i]);
+                if (taches[i].IdUtilisateur is null)
+                    lstTaches.Items.Add(taches[i]);
             }
-            employes= admin.RecupererTousLesEmployes();
+            employes = admin.RecupererTousLesEmployes();
             for (int i = 0; i < employes.Count; i++)
             {
                 lstEmployes.Items.Add(employes[i]);
@@ -92,7 +80,7 @@ namespace GestionDentreprise
             {
                 admin.AttribuerUneTache(tache, employe);
                 MessageBox.Show("Tâche attribuée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
-               
+
             }
             catch (Exception ex)
             {
@@ -105,7 +93,7 @@ namespace GestionDentreprise
                 if (taches[i].IdUtilisateur is null)
                     lstTaches.Items.Add(taches[i]);
             }
-            
+
         }
 
 
@@ -113,7 +101,7 @@ namespace GestionDentreprise
         {
             AjouterTache ajouterTache = new AjouterTache(admin);
             bool? resultat = ajouterTache.ShowDialog();
-            if(resultat!= null && resultat== true)
+            if (resultat != null && resultat == true)
             {
                 DialogResult = true;
 

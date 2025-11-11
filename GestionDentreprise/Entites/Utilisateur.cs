@@ -1,14 +1,11 @@
-﻿using MySqlConnector;
-using System;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
+﻿using System.Text.RegularExpressions;
 
 namespace GestionDentreprise.Entites
 {
     public abstract class Utilisateur
     {
-        private int id; 
-        private string nom=default!;
+        private int id;
+        private string nom = default!;
         private string prenom = default!;
         private string email = default!;
         private string motDePasse = default!;
@@ -80,7 +77,7 @@ namespace GestionDentreprise.Entites
 
         public DateTime DateEmbauche { get; set; }
 
-        protected Utilisateur(int id, string nom, string prenom, string email, string motDePasse, string role= "Employe", bool actif = true)
+        protected Utilisateur(int id, string nom, string prenom, string email, string motDePasse, string role = "Employe", bool actif = true)
         {
             Id = id;
             Nom = nom;
@@ -93,7 +90,7 @@ namespace GestionDentreprise.Entites
 
         public static Utilisateur? SeConnecter(string email, string motDePasse)
         {
-           Utilisateur? utilisateur = GestionDesDonnees.ObtenirUtilisateur(email, motDePasse);
+            Utilisateur? utilisateur = GestionDesDonnees.ObtenirUtilisateur(email, motDePasse);
             return utilisateur;
         }
 
@@ -101,7 +98,7 @@ namespace GestionDentreprise.Entites
 
         public void MettreAJourMonProfil()
         {
-          GestionDesDonnees.MettreAJourUtilisateur(Nom, Prenom, Email, Id);
+            GestionDesDonnees.MettreAJourUtilisateur(Nom, Prenom, Email, Id);
         }
         public string AfficherInfos()
         {

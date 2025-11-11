@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GestionDentreprise.Entites
+﻿namespace GestionDentreprise.Entites
 {
     public class Tache
     {
@@ -10,7 +8,7 @@ namespace GestionDentreprise.Entites
         private string priorite;
         private DateTime dateCreation;
         private DateTime dateLimite;
-        private string etat= "Non commencée";
+        private string etat = "Non commencée";
         private int? idUtilisateur;
 
         public int IdTache { get => idTache; set => idTache = value; }
@@ -23,7 +21,7 @@ namespace GestionDentreprise.Entites
         public int? IdUtilisateur { get => idUtilisateur; set => idUtilisateur = value; }
 
 
-        public Tache( string titre, string description, string priorite,
+        public Tache(string titre, string description, string priorite,
                       DateTime dateLimite)
         {
             this.titre = titre;

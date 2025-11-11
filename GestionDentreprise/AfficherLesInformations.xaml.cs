@@ -1,5 +1,4 @@
 ﻿using GestionDentreprise.Entites;
-using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -25,26 +24,26 @@ namespace GestionDentreprise
             try
             {
                 if (!string.IsNullOrWhiteSpace(TextBoxNom.Text))
-                  utilisateur.Nom = TextBoxNom.Text;
+                    utilisateur.Nom = TextBoxNom.Text;
 
-               if (!string.IsNullOrWhiteSpace(TextBoxPrenom.Text))
-                   utilisateur.Prenom = TextBoxPrenom.Text;
+                if (!string.IsNullOrWhiteSpace(TextBoxPrenom.Text))
+                    utilisateur.Prenom = TextBoxPrenom.Text;
 
-               if (!string.IsNullOrWhiteSpace(TextBoxEmail.Text) &&
-                  Regex.IsMatch(TextBoxEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-              {
-                 utilisateur.Email = TextBoxEmail.Text;
-               }
+                if (!string.IsNullOrWhiteSpace(TextBoxEmail.Text) &&
+                   Regex.IsMatch(TextBoxEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    utilisateur.Email = TextBoxEmail.Text;
+                }
 
-               utilisateur.MettreAJourMonProfil();
+                utilisateur.MettreAJourMonProfil();
 
-               MessageBox.Show("Informations modifiées avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-           this.Close();
+                MessageBox.Show("Informations modifiées avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
             catch (Exception ex)
-           {
+            {
                 MessageBox.Show("Erreur lors de la modification : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-           }
+            }
         }
 
         private void BtnFermer_Click(object sender, RoutedEventArgs e)
