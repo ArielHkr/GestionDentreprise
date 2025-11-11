@@ -243,19 +243,20 @@ namespace GestionDentreprise.Entites
                 cnx.Close();
             }
         }
-        public static List<Employe> ObtenirLesEmployes() {
+        public static List<Employe> ObtenirLesEmployes()
+        {
             List<Employe> liste = new List<Employe>();
             GestionBD cnx = new GestionBD();
-            cnx.Open();
+
             try
             {
-
+                cnx.Open();
                 string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, actif, date_embauche 
-                                 FROM utilisateurs 
-                                 WHERE role = 'Employe';";
+                         FROM utilisateurs 
+                         WHERE role = 'Employe' AND actif = 1;";
 
-                 MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
-                 MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -263,23 +264,41 @@ namespace GestionDentreprise.Entites
                     string nom = reader.GetString("nom");
                     string prenom = reader.GetString("prenom");
                     string email = reader.GetString("email");
-                    string motDePasse = reader.GetString("mot_de_passe");
+                    string mdp = reader.GetString("mot_de_passe");
                     bool actif = reader.GetBoolean("actif");
                     DateTime dateEmbauche = reader.GetDateTime("date_embauche");
-                    Employe emp = new Employe(id, nom, prenom, email, motDePasse, "Employe", actif);
+
+                    Employe emp = new Employe(id, nom, prenom, email, mdp, "Employe", actif);
                     emp.DateEmbauche = dateEmbauche;
                     liste.Add(emp);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de la récupération des employés : " + ex.Message, ex);
             }
             finally
             {
                 cnx.Close();
             }
+
             return liste;
+        }
+
+        public static void RendreEmployeInactif(int idEmploye)
+        {
+            GestionBD cnx = new GestionBD();
+            try
+            {
+                cnx.Open();
+                string query = @"UPDATE utilisateurs
+                         SET actif = 0
+                         WHERE id_utilisateur = @Id AND role = 'Employe';";
+
+                MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection());
+                cmd.Parameters.AddWithValue("@Id", idEmploye);
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                cnx.Close();
+            }
         }
 
 
@@ -326,6 +345,40 @@ namespace GestionDentreprise.Entites
             }
 
             return resultats;
+        }
+
+        public static void EmbaucherEmploye(Employe employe)
+        {
+            GestionBD cnx = new GestionBD();
+            try
+            {
+                cnx.Open();
+
+                string query = @"
+            INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, actif, date_embauche)
+            VALUES (@Nom, @Prenom, @Email, @Mdp, @Role, @Actif, @DateEmbauche);";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@Nom", employe.Nom);
+                    cmd.Parameters.AddWithValue("@Prenom", employe.Prenom);
+                    cmd.Parameters.AddWithValue("@Email", employe.Email);
+                    cmd.Parameters.AddWithValue("@Mdp", employe.MotDePasse);
+                    cmd.Parameters.AddWithValue("@Role", "Employe");
+                    cmd.Parameters.AddWithValue("@Actif", true);
+                    cmd.Parameters.AddWithValue("@DateEmbauche", employe.DateEmbauche);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de l'embauche de l'employé : " + ex.Message);
+            }
+            finally
+            {
+                cnx.Close();
+            }
         }
 
     }

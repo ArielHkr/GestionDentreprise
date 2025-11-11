@@ -32,12 +32,12 @@ namespace GestionDentreprise.Entites
         
         public void EmbaucherEmploye(Employe employe)
         {
-
+            GestionDesDonnees.EmbaucherEmploye(employe);
         }
 
-        public void VirerEmploye(Employe employe)
+        public void VirerEmploye(int employe)
         {
-
+            GestionDesDonnees.RendreEmployeInactif(employe);
         }
         public List<Utilisateur> Rechercher(string Chaine)
         {

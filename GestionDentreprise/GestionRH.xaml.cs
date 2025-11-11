@@ -1,66 +1,87 @@
 ﻿using GestionDentreprise.Entites;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GestionDentreprise
 {
-    /// <summary>
-    /// Logique d'interaction pour GestionRH.xaml
-    /// </summary>
     public partial class GestionRH : Window
     {
         Administrateur Admin;
-        List<Employe> utilisateurs = new List<Employe>();
+        List<Employe> utilisateurs;
+        Employe empAffiche;
         public GestionRH(Administrateur admin)
         {
             InitializeComponent();
             Admin = admin;
-            utilisateurs = Admin.RecupererTousLesEmployes();
-            for (int i = 0; i <utilisateurs.Count; i++) { 
-             cbEmployes.Items.Add(utilisateurs[i]);
-            }
+            utilisateurs = Admin.RecupererTousLesEmployes(); 
+            foreach (var emp in utilisateurs)
+                cbEmployes.Items.Add(emp);
         }
 
         private void RechercherEmploye_Click(object sender, RoutedEventArgs e)
         {
-            if (txtRecherche.Text.Trim() != "")
-            {
-             lstEmployeRecherche.ItemsSource=Admin.Rechercher(txtRecherche.Text);
-            }
+            lstEmployeRecherche.Items.Clear();
+            if (!string.IsNullOrWhiteSpace(txtRecherche.Text))
+                foreach (Utilisateur u in Admin.Rechercher(txtRecherche.Text))
+                    if (u is Employe)
+                        lstEmployeRecherche.Items.Add(u);
         }
 
         private void lstEmployeRecherche_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(lstEmployeRecherche.Items.Count > 0)
-            {
-
-            }
+            if (lstEmployeRecherche.SelectedItem == null) return;
+            AfficherEmploye((Employe)lstEmployeRecherche.SelectedItem);
         }
 
         private void cbEmployes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cbEmployes.SelectedItem  != null)
+            if (cbEmployes.SelectedItem == null) return;
+            AfficherEmploye((Employe)cbEmployes.SelectedItem);
+        }
+
+        private void AfficherEmploye(Employe emp)
+        {
+            empAffiche = emp;
+            lstTaches.Items.Clear();
+            txtNom.Text = emp.Nom;
+            txtPrenom.Text = emp.Prenom;
+            txtEmail.Text = emp.Email;
+            dpEmbauche.Text = emp.DateEmbauche.ToString("yyyy-MM-dd");
+            foreach (var t in emp.RecupererTaches())
+                lstTaches.Items.Add(t);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (empAffiche == null)
             {
-                Employe emp = utilisateurs[cbEmployes.SelectedIndex];
-                txtNom.Text = emp.Nom;
-                txtPrenom.Text = emp.Prenom;
-                txtEmail.Text = emp.Email;
-                dpEmbauche.Text = emp.DateEmbauche.ToString("yyyy-MM-dd");
-                foreach(Tache t in emp.RecupererTaches())
-                {
-                    lstTaches.Items.Add(t);
-                }
+                MessageBox.Show("Aucun employé sélectionné.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show(
+                $"Voulez-vous vraiment rendre inactif l’employé {empAffiche.Prenom} {empAffiche.Nom} ?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Admin.VirerEmploye(empAffiche.Id);
+                MessageBox.Show("L’employé a été rendu inactif.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Embauche embauche = new Embauche(Admin);
+            bool? resultat = embauche.ShowDialog();
+            if (resultat == true)
+            {
+                this.Close();
             }
         }
     }

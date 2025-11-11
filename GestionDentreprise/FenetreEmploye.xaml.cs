@@ -198,9 +198,6 @@ namespace GestionDentreprise
 
         }
 
-        private void Btn_GestionRH(object sender, RoutedEventArgs e)
-        {
-
-        }
+      
     }
 }

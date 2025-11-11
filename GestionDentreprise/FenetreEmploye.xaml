@@ -28,7 +28,6 @@
 
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
             <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" Click="Button_Click" BorderBrush="#FF250F54"/>
-            <Button Content="Resources humaines" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Click="Btn_GestionRH" BorderBrush="#FF250F54" Width="238"/>
             <Button
 
 Content="Deconnexion"
