@@ -251,7 +251,7 @@ namespace GestionDentreprise.Entites
             try
             {
                 cnx.Open();
-                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, actif, date_embauche 
+                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, actif, date_embauche, points
                          FROM utilisateurs 
                          WHERE role = 'Employe' AND actif = 1;";
 
@@ -267,8 +267,9 @@ namespace GestionDentreprise.Entites
                     string mdp = reader.GetString("mot_de_passe");
                     bool actif = reader.GetBoolean("actif");
                     DateTime dateEmbauche = reader.GetDateTime("date_embauche");
+                    int points = reader.GetInt32("points"); 
 
-                    Employe emp = new Employe(id, nom, prenom, email, mdp, "Employe", actif);
+                    Employe emp = new Employe(id, nom, prenom, email, mdp, "Employe", actif, points);
                     emp.DateEmbauche = dateEmbauche;
                     liste.Add(emp);
                 }
@@ -280,6 +281,7 @@ namespace GestionDentreprise.Entites
 
             return liste;
         }
+
 
         public static void RendreEmployeInactif(int idEmploye)
         {
@@ -346,7 +348,25 @@ namespace GestionDentreprise.Entites
 
             return resultats;
         }
-
+        public static void MettreAJourPointsEmploye(int idEmploye, int points)
+        {
+            GestionBD cnx = new GestionBD();
+            try
+            {
+                cnx.Open();
+                string query = @"UPDATE utilisateurs SET points = @Points WHERE id_utilisateur = @Id AND role = 'Employe';";
+                using (var cmd = new MySqlCommand(query, cnx.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@Points", points);
+                    cmd.Parameters.AddWithValue("@Id", idEmploye);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                cnx.Close();
+            }
+        }
         public static void EmbaucherEmploye(Employe employe)
         {
             GestionBD cnx = new GestionBD();

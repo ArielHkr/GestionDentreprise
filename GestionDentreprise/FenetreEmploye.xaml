@@ -11,7 +11,6 @@
         WindowStartupLocation="CenterScreen"
         Icon="/images/icone-gestion.ico"
         WindowState="Maximized"
-
         Style="{StaticResource MaterialDesignWindow}">
 
     <DockPanel>
@@ -20,21 +19,13 @@
                 <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
             </materialDesign:ColorZone>
 
-
-
-
-
-
-
             <StackPanel VerticalAlignment="Bottom" Margin="10"/>
             <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" Click="Button_Click" BorderBrush="#FF250F54"/>
-            <Button
-
-Content="Deconnexion"
-IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
-Style="{StaticResource MaterialDesignOutlinedButton}"
-ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDFD3F3" Height="38" Margin="0,491,0,0" Click="Button_Click_1"
-/>
+            <Button Content="Deconnexion"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}" 
+                    BorderBrush="#FFE7DFF6" Foreground="#FFDFD3F3" Height="38" Margin="0,491,0,0" 
+                    Click="Button_Click_1"/>
         </StackPanel>
 
         <DockPanel AllowDrop="True" x:Name="DkPanel" Cursor="Hand">
@@ -68,6 +59,12 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                             <TextBlock FontSize="24" x:Name="nbAFaire"/>
                         </StackPanel>
                     </materialDesign:Card>
+                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                        <StackPanel>
+                            <TextBlock Text="Points" FontWeight="Bold"/>
+                            <TextBlock FontSize="24" x:Name="nbPoints"/>
+                        </StackPanel>
+                    </materialDesign:Card>
                 </StackPanel>
 
                 <Grid Grid.Row="1">
@@ -99,8 +96,7 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
-                                      Drop="ListView_Drop" MouseDoubleClick="DoingList_MouseDoubleClick">
-                            </ListView>
+                                      Drop="ListView_Drop" MouseDoubleClick="DoingList_MouseDoubleClick"/>
                         </StackPanel>
                     </materialDesign:Card>
 
@@ -113,8 +109,7 @@ ToolTip="MaterialDesignOutlinedButton" BorderBrush="#FFE7DFF6" Foreground="#FFDF
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
-                                      Drop="ListView_Drop" MouseDoubleClick="DoneList_MouseDoubleClick">
-                            </ListView>
+                                      Drop="ListView_Drop" MouseDoubleClick="DoneList_MouseDoubleClick"/>
                         </StackPanel>
                     </materialDesign:Card>
                 </Grid>

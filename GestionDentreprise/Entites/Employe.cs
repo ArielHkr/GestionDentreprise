@@ -7,17 +7,21 @@ namespace GestionDentreprise.Entites
 {
     public class Employe : Utilisateur
     {
-        public Employe(int id, string nom, string prenom, string email, string motDePasse,string role, bool actif = true)
+        private int _points;
+        public Employe(int id, string nom, string prenom, string email, string motDePasse, string role, bool actif = true, int points = 0)
             : base(id, nom, prenom, email, motDePasse, "Employe", actif)
         {
-
+            _points = points;
         }
+
+        public int Points { get => _points; set => _points = value; }
 
         public override List<Tache> RecupererTaches()
         {
             return GestionDesDonnees.ObtenirLesTaches(Id);
         }
         
+       
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using GestionDentreprise.Entites;
-using MySqlConnector;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,22 +11,17 @@ namespace GestionDentreprise
         private Employe _employe;
         List<Tache> taches;
 
-
         public FenetreEmploye(Employe emp)
         {
-
             InitializeComponent();
-            MettreAJourCompteurs();
-
             _employe = emp;
             taches = _employe.RecupererTaches();
             ChargerTaches();
-
+            MettreAJourCompteurs();
         }
 
         private void ChargerTaches()
         {
-            
             foreach (Tache tache in taches)
             {
                 switch (tache.Etat)
@@ -62,8 +56,11 @@ namespace GestionDentreprise
         {
             var tache = e.Data.GetData(typeof(Tache)) as Tache;
             var targetList = sender as ListView;
-
             if (tache == null || targetList == null) return;
+
+            TodoList.Items.Remove(tache);
+            DoingList.Items.Remove(tache);
+            DoneList.Items.Remove(tache);
 
             if (targetList.Name == "TodoList")
                 tache.Etat = "Non commencée";
@@ -72,25 +69,7 @@ namespace GestionDentreprise
             else if (targetList.Name == "DoneList")
                 tache.Etat = "Terminée";
 
-            TodoList.Items.Remove(tache);
-            DoingList.Items.Remove(tache);
-            DoneList.Items.Remove(tache);
             targetList.Items.Add(tache);
-
-            try
-            {
-                 GestionBD cnx = new GestionBD();
-                cnx.Open();
-                var cmd = new MySqlCommand("UPDATE Taches SET etat=@etat WHERE id_tache=@id", cnx.GetConnection());
-                cmd.Parameters.AddWithValue("@etat", tache.Etat);
-                cmd.Parameters.AddWithValue("@id", tache.IdTache);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur mise à jour BD : " + ex.Message);
-            }
-
             MettreAJourCompteurs();
         }
 
@@ -99,6 +78,11 @@ namespace GestionDentreprise
             nbAFaire.Text = TodoList.Items.Count.ToString();
             nbEncours.Text = DoingList.Items.Count.ToString();
             nbFini.Text = DoneList.Items.Count.ToString();
+
+            _employe.Points = DoneList.Items.Count * 100;
+            nbPoints.Text = _employe.Points.ToString();
+            GestionDesDonnees.MettreAJourPointsEmploye(_employe.Id, _employe.Points);
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -110,11 +94,11 @@ namespace GestionDentreprise
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             MessageBoxResult resultat = MessageBox.Show(
-      "Voulez-vous vraiment vous déconnecter ?",
-      "Confirmation de déconnexion",
-      MessageBoxButton.YesNo,
-      MessageBoxImage.Question
-  );
+                "Voulez-vous vraiment vous déconnecter ?",
+                "Confirmation de déconnexion",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
 
             if (resultat == MessageBoxResult.Yes)
             {
@@ -122,67 +106,27 @@ namespace GestionDentreprise
                 mainWindow.Show();
                 this.Close();
             }
-         
-        }
-
-        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void TodoList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int index = TodoList.SelectedIndex;
-
-            if (index >= 0 && index < taches.Count)
-            {
-                Tache tache = (Tache)TodoList.SelectedItem;
-
-                MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
-            }
+            AfficherDetailsTache(TodoList);
         }
 
         private void DoingList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int index = DoingList.SelectedIndex;
-
-            if (index >= 0 && index < taches.Count)
-            {
-                Tache tache = (Tache)DoingList.SelectedItem;
-
-                MessageBox.Show(
-                    $"Titre : {tache.Titre}\n\n" +
-                    $"Description : {tache.Description}\n\n" +
-                    $"Priorité : {tache.Priorite}\n\n" +
-                    $"Date de création : {tache.DateCreation:dd/MM/yyyy}\n" +
-                    $"Date limite : {tache.DateLimite:dd/MM/yyyy}\n\n" +
-                    $"État : {tache.Etat}",
-                    "Détails de la tâche",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
-            }
+            AfficherDetailsTache(DoingList);
         }
 
         private void DoneList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int index = DoneList.SelectedIndex;
+            AfficherDetailsTache(DoneList);
+        }
 
-            if (index >= 0 && index < taches.Count)
+        private void AfficherDetailsTache(ListView listView)
+        {
+            if (listView.SelectedItem is Tache tache)
             {
-                Tache tache = (Tache)DoneList.SelectedItem;
-
-
                 MessageBox.Show(
                     $"Titre : {tache.Titre}\n\n" +
                     $"Description : {tache.Description}\n\n" +
@@ -195,9 +139,6 @@ namespace GestionDentreprise
                     MessageBoxImage.Information
                 );
             }
-
         }
-
-      
     }
 }
