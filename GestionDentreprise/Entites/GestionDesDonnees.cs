@@ -4,6 +4,12 @@ namespace GestionDentreprise.Entites
 {
     public static class GestionDesDonnees
     {
+        /// <summary>
+        /// Obtient un utilisateur actif correspondant à l'email et au mot de passe fournis.
+        /// </summary>
+        /// <param name="email">Adresse courriel.</param>
+        /// <param name="motDePasse">Mot de passe.</param>
+        /// <returns>Une instance de <see cref="Utilisateur"/> si trouvée, sinon <c>null</c>.</returns>
         public static Utilisateur? ObtenirUtilisateur(string email, string motDePasse)
         {
             GestionBD cnx = new GestionBD();
@@ -57,7 +63,9 @@ namespace GestionDentreprise.Entites
             }
         }
 
-
+        /// <summary>
+        /// Met à jour le nom, le prénom et l'email d'un utilisateur.
+        /// </summary>
         public static void MettreAJourUtilisateur(string Nom, string Prenom, string Email, int Id)
         {
             GestionBD cnx = new GestionBD();
@@ -89,6 +97,9 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Retourne les tâches associées à un utilisateur ou toutes les tâches si l'ID est nul.
+        /// </summary>
         public static List<Tache> ObtenirLesTaches(int? Id)
         {
             var liste = new List<Tache>();
@@ -176,7 +187,9 @@ namespace GestionDentreprise.Entites
 
         }
 
-
+        /// <summary>
+        /// Attribue une tâche existante à un employé.
+        /// </summary>
         public static void AttribuerUneTache(Tache tache, Employe employe)
         {
             GestionBD cnx = new GestionBD();
@@ -209,6 +222,11 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Permet d'ajouter une tâche.
+        /// </summary>
+        /// <param name="tache"></param>
+        /// <exception cref="Exception"></exception>
         public static void AjouterUneTache(Tache tache)
         {
             GestionBD cnx = new GestionBD();
@@ -239,6 +257,11 @@ namespace GestionDentreprise.Entites
                 cnx.Close();
             }
         }
+       
+        /// <summary>
+        /// Permet d'obtenir tous les employés.
+        /// </summary>
+        /// <returns>Retourne un liste d'employés.</returns>
         public static List<Employe> ObtenirLesEmployes()
         {
             List<Employe> liste = new List<Employe>();
@@ -278,7 +301,10 @@ namespace GestionDentreprise.Entites
             return liste;
         }
 
-
+        /// <summary>
+        /// Désactie un employé.
+        /// </summary>
+        /// <param name="idEmploye">L'employé à désactiver</param>
         public static void RendreEmployeInactif(int idEmploye)
         {
             GestionBD cnx = new GestionBD();
@@ -299,7 +325,11 @@ namespace GestionDentreprise.Entites
             }
         }
 
-
+        /// <summary>
+        /// Permet de trouver un employé
+        /// </summary>
+        /// <param name="chaine">Le nom de l'employé</param>
+        /// <returns>Une liste d'employés correspondants.</returns>
         public static List<Utilisateur> RechercherEmployw(string chaine)
         {
             var resultats = new List<Utilisateur>();
@@ -344,6 +374,13 @@ namespace GestionDentreprise.Entites
 
             return resultats;
         }
+     
+
+        /// <summary>
+        /// Met à jour les points de l'employé.
+        /// </summary>
+        /// <param name="idEmploye"></param>
+        /// <param name="points"></param>
         public static void MettreAJourPointsEmploye(int idEmploye, int points)
         {
             GestionBD cnx = new GestionBD();
@@ -363,6 +400,12 @@ namespace GestionDentreprise.Entites
                 cnx.Close();
             }
         }
+      
+        /// <summary>
+        /// Permet d'ajouter un employé.
+        /// </summary>
+        /// <param name="employe">L'employé à ajouter.</param>
+        /// <exception cref="Exception"></exception>
         public static void EmbaucherEmploye(Employe employe)
         {
             GestionBD cnx = new GestionBD();
@@ -397,6 +440,10 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Permet d'obtenir l'employé du mois.
+        /// </summary>
+        /// <returns>L'employé du mois.</returns>
         public static Employe? ObtenirEmployeDuMoisBD()
         {
             GestionBD cnx = new GestionBD();

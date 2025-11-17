@@ -2,6 +2,10 @@
 
 namespace GestionDentreprise.Entites
 {
+    /// <summary>
+    /// Représente un utilisateur général de l'application.
+    /// Classe abstraite servant de base pour les employés et administrateurs.
+    /// </summary>
     public abstract class Utilisateur
     {
         private int id;
@@ -12,7 +16,9 @@ namespace GestionDentreprise.Entites
         private string role = default!;
         private bool actif;
 
-
+        /// <summary>
+        /// Identifiant unique de l'utilisateur.
+        /// </summary>
         public int Id
         {
             get => id;
@@ -23,6 +29,9 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Nom de l'utilisateur.
+        /// </summary>
         public string Nom
         {
             get => nom;
@@ -33,6 +42,9 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Prénom de l'utilisateur.
+        /// </summary>
         public string Prenom
         {
             get => prenom;
@@ -43,6 +55,9 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Adresse courriel de l'utilisateur.
+        /// </summary>
         public string Email
         {
             get => email;
@@ -54,30 +69,42 @@ namespace GestionDentreprise.Entites
             }
         }
 
+        /// <summary>
+        /// Mot de passe de l'utilisateur.
+        /// </summary>
         public string MotDePasse
         {
             get => motDePasse;
-            set
-            {
-                motDePasse = value;
-            }
+            set => motDePasse = value;
         }
 
+        /// <summary>
+        /// Rôle de l'utilisateur (Employé, Administrateur, etc.).
+        /// </summary>
         public string Role
         {
             get => role;
             set => role = value;
         }
 
+        /// <summary>
+        /// Indique si l'utilisateur est actif.
+        /// </summary>
         public bool Actif
         {
             get => actif;
             set => actif = value;
         }
 
+        /// <summary>
+        /// Date d'embauche de l'utilisateur.
+        /// </summary>
         public DateTime DateEmbauche { get; set; }
 
-        protected Utilisateur(int id, string nom, string prenom, string email, string motDePasse, string role = "Employe", bool actif = true)
+        /// <summary>
+        /// Initialise une nouvelle instance de la classe <see cref="Utilisateur"/>.
+        /// </summary>
+        public Utilisateur(int id, string nom, string prenom, string email, string motDePasse, string role = "Employe", bool actif = true)
         {
             Id = id;
             Nom = nom;
@@ -88,22 +115,42 @@ namespace GestionDentreprise.Entites
             Actif = actif;
         }
 
+        /// <summary>
+        /// Vérifie les informations de connexion d'un utilisateur.
+        /// </summary>
+        /// <param name="email">Adresse email.</param>
+        /// <param name="motDePasse">Mot de passe.</param>
+        /// <returns>L'utilisateur correspondant ou <c>null</c>.</returns>
         public static Utilisateur? SeConnecter(string email, string motDePasse)
         {
             Utilisateur? utilisateur = GestionDesDonnees.ObtenirUtilisateur(email, motDePasse);
             return utilisateur;
         }
 
+        /// <summary>
+        /// Récupère la liste des tâches associées à l'utilisateur.
+        /// </summary>
         public abstract List<Tache> RecupererTaches();
 
+        /// <summary>
+        /// Met à jour le profil de l'utilisateur dans la base de données.
+        /// </summary>
         public void MettreAJourMonProfil()
         {
             GestionDesDonnees.MettreAJourUtilisateur(Nom, Prenom, Email, Id);
         }
+
+        /// <summary>
+        /// Retourne une chaîne contenant les informations essentielles de l'utilisateur.
+        /// </summary>
         public string AfficherInfos()
         {
             return $"{Prenom} {Nom} ({Role})";
         }
+
+        /// <summary>
+        /// Représente l'utilisateur sous forme textuelle.
+        /// </summary>
         public override string ToString()
         {
             return $"{Prenom} {Nom}";
