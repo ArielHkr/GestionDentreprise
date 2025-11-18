@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Embaucher un employé"
         Height="400" Width="450"
-        Icon="/images/icone-gestion.ico"
+        Icon="/Vue/images/icone-gestion.ico"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="20">
         <Grid.RowDefinitions>

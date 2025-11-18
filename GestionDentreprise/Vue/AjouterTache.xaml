@@ -9,7 +9,7 @@
         Width="500" Height="600"
         WindowStartupLocation="CenterScreen"
         Background="#FAFAFA"
-        Icon="/images/icone-gestion.ico">
+        Icon="/Vue/images/icone-gestion.ico">
 
     <Grid Margin="30,30,30,-6">
         <Grid.RowDefinitions>

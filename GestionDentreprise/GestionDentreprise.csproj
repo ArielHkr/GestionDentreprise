@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="images\icone-gestion.ico" />
-    <None Remove="images\image-connexion.jpg" />
+    <None Remove="Vue\images\icone-gestion.ico" />
+    <None Remove="Vue\images\image-connexion.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="images\icone-gestion.ico">
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Vue\images\icone-gestion.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="images\image-connexion.jpg">
+    <Resource Include="Vue\images\image-connexion.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -53,22 +53,22 @@ namespace GestionDentreprise
 
         private void ListView_Drop(object sender, DragEventArgs e)
         {
-            var tache = e.Data.GetData(typeof(Tache)) as Tache;
-            var targetList = sender as ListView;
-            if (tache == null || targetList == null) return;
+            Tache? tache = e.Data.GetData(typeof(Tache)) as Tache;
+            var listeCible = sender as ListView;
+            if (tache == null || listeCible == null) return;
 
             TodoList.Items.Remove(tache);
             DoingList.Items.Remove(tache);
             DoneList.Items.Remove(tache);
 
-            if (targetList.Name == "TodoList")
+            if (listeCible.Name == "TodoList")
                 tache.Etat = "Non commencée";
-            else if (targetList.Name == "DoingList")
+            else if (listeCible.Name == "DoingList")
                 tache.Etat = "En cours";
-            else if (targetList.Name == "DoneList")
+            else if (listeCible.Name == "DoneList")
                 tache.Etat = "Terminée";
 
-            targetList.Items.Add(tache);
+            listeCible.Items.Add(tache);
             MettreAJourCompteurs();
         }
 

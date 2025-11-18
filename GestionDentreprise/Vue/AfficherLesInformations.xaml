@@ -4,6 +4,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Profil Utilisateur" Height="400" Width="400"
         WindowStartupLocation="CenterScreen"
+        Icon="/Vue/images/icone-gestion.ico"
         Style="{StaticResource MaterialDesignWindow}">
 
     <Grid Margin="20">

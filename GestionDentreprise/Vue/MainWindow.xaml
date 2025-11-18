@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestionDentreprise"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Icon="/images/icone-gestion.ico"
+        Icon="/Vue/images/icone-gestion.ico"
         mc:Ignorable="d"
         WindowState="Maximized"
 
@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" >
-            <Image Source="pack://application:,,,/images/image-connexion.jpg"
+            <Image Source="pack://application:,,,/Vue/images/image-connexion.jpg"
        Stretch="Uniform"
        VerticalAlignment="Center"
        HorizontalAlignment="Center" Height="1033"/>

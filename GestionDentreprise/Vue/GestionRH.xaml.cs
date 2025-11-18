@@ -20,17 +20,35 @@ namespace GestionDentreprise
 
         private void RechercherEmploye_Click(object sender, RoutedEventArgs e)
         {
+            bool trouve=false;
             lstEmployeRecherche.Items.Clear();
             if (!string.IsNullOrWhiteSpace(txtRecherche.Text))
+            {
                 foreach (Utilisateur u in Admin.Rechercher(txtRecherche.Text))
+                {
                     if (u is Employe)
+                    {
                         lstEmployeRecherche.Items.Add(u);
+                        trouve = true;
+                    }
+                }
+                if (!trouve)
+                {
+                    MessageBox.Show("Aucun employé trouvé.", "Recherche", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez d'abord entrer le nom à rechercher.", "Recherche", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
         }
 
         private void lstEmployeRecherche_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstEmployeRecherche.SelectedItem == null) return;
             AfficherEmploye((Employe)lstEmployeRecherche.SelectedItem);
+            
         }
 
         private void cbEmployes_SelectionChanged(object sender, SelectionChangedEventArgs e)
