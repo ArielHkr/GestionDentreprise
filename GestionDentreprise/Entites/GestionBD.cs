@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using System.Configuration;
 
 namespace GestionDentreprise
 {
@@ -10,9 +11,7 @@ namespace GestionDentreprise
         /// <summary>
         /// Chaîne de connexion utilisée pour se connecter à la base de données.
         /// </summary>
-        private readonly string connectionString =
-            "Server=localhost;Database=gestiontachesentreprise;User ID=root;Password=MariaDB;";
-
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
         /// <summary>
         /// Objet représentant la connexion MySQL.
         /// </summary>
