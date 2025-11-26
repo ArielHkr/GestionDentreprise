@@ -16,7 +16,7 @@
             <TextBlock Text="Rechercher un employé" FontSize="18" FontWeight="Bold" Margin="0,0,0,5"/>
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="txtRecherche" Width="250" ToolTip="Rechercher un employé"/>
-                <Button x:Name="btnRecherche" Content="Rechercher" Width="100" Margin="5,0,0,0" Click="RechercherEmploye_Click"/>
+                <Button x:Name="btnRecherche" Content="Rechercher" Width="132" Margin="5,0,0,0" Click="RechercherEmploye_Click"/>
             </StackPanel>
         </StackPanel>
 
@@ -43,8 +43,8 @@
                         <DatePicker x:Name="dpEmbauche" IsEnabled="False" Margin="0,0,0,5"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
-                        <Button Content="Embaucher" Width="114" Margin="0,0,5,0" Click="Button_Click_1"/>
-                        <Button Content="Virer" Width="80" Click="Button_Click"/>
+                        <Button Content="Ajouter" Width="114" Margin="0,0,5,0" Click="Button_Click_1"/>
+                        <Button Content="Désactiver" Width="133" Click="Button_Click"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

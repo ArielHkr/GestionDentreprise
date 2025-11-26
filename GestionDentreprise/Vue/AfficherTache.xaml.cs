@@ -6,7 +6,7 @@ namespace GestionDentreprise
 {
     public partial class AfficherTache : Window
     {
-        public AfficherTache(Tache tache)
+        public AfficherTache(Tache tache,Administrateur admin=null)
         {
             InitializeComponent();
 
@@ -22,5 +22,7 @@ namespace GestionDentreprise
         {
             this.Close();
         }
+
+     
     }
 }

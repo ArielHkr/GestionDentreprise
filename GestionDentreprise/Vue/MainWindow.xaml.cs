@@ -13,8 +13,8 @@ namespace GestionDentreprise
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string email = txtUser.Text.Trim();
-            string password = txtPassword.Password.Trim();
+            string email = "admin@entreprise.com" /*txtUser.Text.Trim()*/;
+            string password = "admin123" /*txtPassword.Password.Trim()*/;
 
             if (string.IsNullOrEmpty(email))
             {

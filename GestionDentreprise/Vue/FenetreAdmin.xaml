@@ -23,6 +23,8 @@
             <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" BorderBrush="#FF250F54" Click="Button_Click"/>
             <Button Content="Gestion des taches" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_2"/>
             <Button Content="Gestion RH" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_3"/>
+            <Button Content="Vidéo tutoriel" Style="{StaticResource MaterialDesignFlatDarkBgButton}" BorderBrush="#FF250F54" Click="Button_Click_4"/>
+
             <Button Content="Deconnexion" Style="{StaticResource MaterialDesignOutlinedButton}" BorderBrush="#FFE7DFF6" Foreground="#FFDFD3F3" Height="38" Margin="0,491,0,0" Click="Button_Click_1"/>
         </StackPanel>
 

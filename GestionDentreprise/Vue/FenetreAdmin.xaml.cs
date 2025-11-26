@@ -1,4 +1,5 @@
 ﻿using GestionDentreprise.Entites;
+using GestionDentreprise.Vue;
 using System.Windows;
 using System.Windows.Input;
 
@@ -136,6 +137,13 @@ namespace GestionDentreprise
 
             GestionRH gestionRH = new GestionRH(administrateur);
             gestionRH.ShowDialog();
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+          
+            Tutoriel tutoriel = new Tutoriel();
+            tutoriel.ShowDialog();
         }
     }
 }
