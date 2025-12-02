@@ -31,7 +31,7 @@
         }
         public override string ToString()
         {
-            return $"{Titre} (Priorité: {Priorite} {IdUtilisateur})";
+            return $"{Titre} (Priorité: {Priorite})";
         }
     }
 }

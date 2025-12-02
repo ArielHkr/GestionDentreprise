@@ -1,5 +1,5 @@
 ﻿using MySqlConnector;
-
+using GestionDentreprise.Firewall;
 namespace GestionDentreprise.Entites
 {
     public static class GestionDesDonnees
@@ -10,47 +10,52 @@ namespace GestionDentreprise.Entites
         /// <param name="email">Adresse courriel.</param>
         /// <param name="motDePasse">Mot de passe.</param>
         /// <returns>Une instance de <see cref="Utilisateur"/> si trouvée, sinon <c>null</c>.</returns>
-        public static Utilisateur? ObtenirUtilisateur(string email, string motDePasse)
+        public static Utilisateur? ObtenirUtilisateur(string email, string motDePasseSaisi)
         {
             GestionBD cnx = new GestionBD();
             try
             {
                 cnx.Open();
-                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role,date_embauche, actif 
-                                 FROM utilisateurs 
-                                 WHERE email = @Email AND mot_de_passe = @Mdp AND actif=1;";
+                string query = @"SELECT id_utilisateur, nom, prenom, email, 
+                                mot_de_passe_hash, mot_de_passe_salt,
+                                role, date_embauche, actif 
+                         FROM utilisateurs 
+                         WHERE email = @Email AND actif = 1;";
 
                 var cmd = new MySqlCommand(query, cnx.GetConnection());
                 cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Mdp", motDePasse);
 
                 var reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if (!reader.Read())
+                    return null;
+
+                int id = reader.GetInt32("id_utilisateur");
+                string nom = reader.GetString("nom");
+                string prenom = reader.GetString("prenom");
+                string role = reader.GetString("role");
+                bool actif = reader.GetBoolean("actif");
+                DateTime date_embauche = reader.GetDateTime("date_embauche");
+
+                byte[] hashFromDb = Convert.FromBase64String(reader.GetString("mot_de_passe_hash"));
+                byte[] saltFromDb = Convert.FromBase64String(reader.GetString("mot_de_passe_salt"));
+
+                bool _valide = Firewall.Firewall.VerifierMotDePasse(motDePasseSaisi, saltFromDb, hashFromDb);
+
+                if (!_valide)
+                    return null;
+
+                if (role == "Administrateur")
                 {
-                    int id = reader.GetInt32("id_utilisateur");
-                    string nom = reader.GetString("nom");
-                    string prenom = reader.GetString("prenom");
-                    string role = reader.GetString("role");
-                    bool actif = reader.GetBoolean("actif");
-                    DateTime date_embauche = reader.GetDateTime("date_embauche");
-                    if (role == "Administrateur")
-                    {
-                        Administrateur admin = new Administrateur(id, nom, prenom, email, motDePasse, role, actif);
-                        admin.DateEmbauche = date_embauche;
-                        return admin;
-                    }
-
-                    else
-                    {
-                        Employe emp = new Employe(id, nom, prenom, email, motDePasse, role, actif);
-                        emp.DateEmbauche = date_embauche;
-                        return emp;
-
-                    }
-
+                    var admin = new Administrateur(id, nom, prenom, email, "", role, actif);
+                    admin.DateEmbauche = date_embauche;
+                    return admin;
                 }
-
-                return null;
+                else
+                {
+                    var emp = new Employe(id, nom, prenom, email, "", role, actif);
+                    emp.DateEmbauche = date_embauche;
+                    return emp;
+                }
             }
             catch (Exception ex)
             {
@@ -62,6 +67,7 @@ namespace GestionDentreprise.Entites
                 cnx.Close();
             }
         }
+
 
         /// <summary>
         /// Met à jour le nom, le prénom et l'email d'un utilisateur.
@@ -270,7 +276,7 @@ namespace GestionDentreprise.Entites
             try
             {
                 cnx.Open();
-                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, actif, date_embauche, points
+                string query = @"SELECT id_utilisateur, nom, prenom, email, mot_de_passe_hash, role, actif, date_embauche, points
                          FROM utilisateurs 
                          WHERE role = 'Employe' AND actif = 1;";
 
@@ -283,7 +289,7 @@ namespace GestionDentreprise.Entites
                     string nom = reader.GetString("nom");
                     string prenom = reader.GetString("prenom");
                     string email = reader.GetString("email");
-                    string mdp = reader.GetString("mot_de_passe");
+                    string mdp = reader.GetString("mot_de_passe_hash");
                     bool actif = reader.GetBoolean("actif");
                     DateTime dateEmbauche = reader.GetDateTime("date_embauche");
                     int points = reader.GetInt32("points");
@@ -406,23 +412,27 @@ namespace GestionDentreprise.Entites
         /// </summary>
         /// <param name="employe">L'employé à ajouter.</param>
         /// <exception cref="Exception"></exception>
-        public static void EmbaucherEmploye(Employe employe)
+        public static void AjouterUnEmploye(Employe employe)
         {
             GestionBD cnx = new GestionBD();
+            byte[] salt = Firewall.Firewall.CreerNouveauSalt();
+            byte[] hash = Firewall.Firewall.HashUnMotDePasse(employe.MotDePasse,salt);
             try
             {
                 cnx.Open();
 
                 string query = @"
-            INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, actif, date_embauche)
-            VALUES (@Nom, @Prenom, @Email, @Mdp, @Role, @Actif, @DateEmbauche);";
+            INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe_hash,mot_de_passe_salt, role, actif, date_embauche)
+            VALUES (@Nom, @Prenom, @Email, @Mdp, @Salt, @Role, @Actif, @DateEmbauche);";
+
 
                 using (MySqlCommand cmd = new MySqlCommand(query, cnx.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@Nom", employe.Nom);
                     cmd.Parameters.AddWithValue("@Prenom", employe.Prenom);
                     cmd.Parameters.AddWithValue("@Email", employe.Email);
-                    cmd.Parameters.AddWithValue("@Mdp", employe.MotDePasse);
+                    cmd.Parameters.AddWithValue("@Mdp", Convert.ToBase64String(hash));
+                    cmd.Parameters.AddWithValue("Salt", Convert.ToBase64String(salt));
                     cmd.Parameters.AddWithValue("@Role", "Employe");
                     cmd.Parameters.AddWithValue("@Actif", true);
                     cmd.Parameters.AddWithValue("@DateEmbauche", employe.DateEmbauche);
@@ -451,7 +461,7 @@ namespace GestionDentreprise.Entites
             {
                 cnx.Open();
                 string query = @"
-            SELECT id_utilisateur, nom, prenom, email, mot_de_passe, role, actif, date_embauche, points
+            SELECT id_utilisateur, nom, prenom, email, mot_de_passe_hash, role, actif, date_embauche, points
             FROM utilisateurs
             WHERE role = 'Employe' AND actif = 1
             ORDER BY points DESC
@@ -466,7 +476,7 @@ namespace GestionDentreprise.Entites
                     string nom = reader.GetString("nom");
                     string prenom = reader.GetString("prenom");
                     string email = reader.GetString("email");
-                    string mdp = reader.GetString("mot_de_passe");
+                    string mdp = reader.GetString("mot_de_passe_hash");
                     bool actif = reader.GetBoolean("actif");
                     DateTime dateEmbauche = reader.GetDateTime("date_embauche");
                     int points = reader.GetInt32("points");

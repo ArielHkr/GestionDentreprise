@@ -1,37 +1,41 @@
 ﻿<Window x:Class="GestionDentreprise.Vue.Tutoriel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Tutoriel" Height="550" Width="800"
         WindowStartupLocation="CenterScreen"
-        Icon="/Vue/images/icone-gestion.ico">
-    
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="17*"/>
-            <ColumnDefinition Width="383*"/>
-        </Grid.ColumnDefinitions>
+        Icon="/Vue/images/icone-gestion.ico"
+        materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <MediaElement x:Name="VideoPlayer" 
-                      Grid.Row="0"
-                      LoadedBehavior="Manual" 
-                      UnloadedBehavior="Stop"
-                      Stretch="Uniform" Grid.ColumnSpan="2"/>
+        <Border CornerRadius="8" BorderBrush="#FF6200EE" BorderThickness="2" Margin="0,0,0,10">
+            <MediaElement x:Name="VideoPlayer"
+                          LoadedBehavior="Manual"
+                          UnloadedBehavior="Stop"
+                          Stretch="Uniform"/>
+        </Border>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1" Margin="125,389,0,0" Grid.RowSpan="2" >
-            <Button x:Name="BtnRetour" Content=" -10s" Width="90" Height="35" Margin="5" 
-                    FontSize="14" Click="BtnRetour_Click" Background="#FF020005"/>
-            <Button x:Name="BtnPlay" Content="Jouer" Width="91" Height="35" Margin="5" 
-                    FontSize="16" Click="BtnPlay_Click" Cursor="Hand" Background="#FF020005"/>
-            <Button x:Name="BtnPause" Content="Pause" Width="89" Height="35" Margin="5" 
-                    FontSize="16" Click="BtnPause_Click" Cursor="Hand" Background="#FF020005"/>
-            <Button x:Name="BtnStop" Content="Stop" Width="73" Height="35" Margin="5" 
-                    FontSize="16" Click="BtnStop_Click" Cursor="Hand" Background="#FF020005"/>
-            <Button x:Name="BtnAvance" Content=" +10s" Width="89" Height="35" Margin="5" 
-                    FontSize="14" Click="BtnAvance_Click" Cursor="Hand" Background="#FF020005"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Margin="0,10,0,0">
+            <Button x:Name="BtnRetour" Content="-10s" Width="90" Height="40" Margin="5" 
+                    FontSize="14" Click="BtnRetour_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+            <Button x:Name="BtnPlay" Content="Jouer" Width="90" Height="40" Margin="5" 
+                    FontSize="16" Click="BtnPlay_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+            <Button x:Name="BtnPause" Content="Pause" Width="90" Height="40" Margin="5" 
+                    FontSize="16" Click="BtnPause_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+            <Button x:Name="BtnStop" Content="Stop" Width="90" Height="40" Margin="5" 
+                    FontSize="16" Click="BtnStop_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+            <Button x:Name="BtnAvance" Content="+10s" Width="90" Height="40" Margin="5" 
+                    FontSize="14" Click="BtnAvance_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
         </StackPanel>
     </Grid>
 </Window>

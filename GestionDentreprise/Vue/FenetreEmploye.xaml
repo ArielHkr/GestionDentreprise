@@ -12,108 +12,130 @@
         Icon="/Vue/images/icone-gestion.ico"
         WindowState="Maximized"
         Style="{StaticResource MaterialDesignWindow}">
+    <materialDesign:DialogHost x:Name="AppDialog" Identifier="AppDialog" CloseOnClickAway="False" ApplyBlurBackground="True">
 
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Width="220" Background="#FF421E7B" Cursor="Hand">
-            <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
-                <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
-            </materialDesign:ColorZone>
 
-            <StackPanel VerticalAlignment="Bottom" Margin="10"/>
-            <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" Click="Button_Click" BorderBrush="#FF250F54"/>
-            <Button Content="Deconnexion"
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Left" Width="220" Background="#FF421E7B" Cursor="Hand">
+                <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight" Background="#FF421E7B">
+                    <materialDesign:PackIcon Width="128" Height="128" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="AccountCircle"/>
+                </materialDesign:ColorZone>
+
+                <StackPanel VerticalAlignment="Bottom" Margin="10"/>
+                <Button Content="Informations personnelles" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Margin="10" Click="Button_Click" BorderBrush="#FF250F54"/>
+                <Button Content="Deconnexion"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
                     Style="{StaticResource MaterialDesignOutlinedButton}" 
                     BorderBrush="#FFE7DFF6" Foreground="#FFDFD3F3" Height="38" Margin="0,491,0,0" 
                     Click="Button_Click_1"/>
-        </StackPanel>
+            </StackPanel>
 
-        <DockPanel AllowDrop="True" x:Name="DkPanel" Cursor="Hand">
-            <Grid DockPanel.Dock="Top" Height="60" Background="{DynamicResource PrimaryHueLightBrush}">
-                <TextBlock Text="Tableau de bord employé" VerticalAlignment="Center" Margin="20,0,0,0"
-                           FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
-            </Grid>
+            <DockPanel AllowDrop="True" x:Name="DkPanel" Cursor="Hand">
+                <Grid DockPanel.Dock="Top" Height="60" Background="{DynamicResource PrimaryHueLightBrush}">
+                    <TextBlock Text="Tableau de bord employé" VerticalAlignment="Center" Margin="20,0,0,0"
+                           FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" HorizontalAlignment="Left"/>
+                    <materialDesign:Snackbar x:Name="SnackbarOne" 
+ MessageQueue="{Binding _messageQueue}" Margin="0,30,30,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
 
-            <Grid Margin="20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
-                        <StackPanel>
-                            <TextBlock Text="Projets en cours" FontWeight="Bold"/>
-                            <TextBlock FontSize="24" x:Name="nbEncours"/>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
-                        <StackPanel>
-                            <TextBlock Text="Projets terminés" FontWeight="Bold"/>
-                            <TextBlock FontSize="24" x:Name="nbFini"/>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
-                        <StackPanel>
-                            <TextBlock Text="Tâches à faire" FontWeight="Bold"/>
-                            <TextBlock FontSize="24" x:Name="nbAFaire"/>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
-                        <StackPanel>
-                            <TextBlock Text="Points" FontWeight="Bold"/>
-                            <TextBlock FontSize="24" x:Name="nbPoints"/>
-                        </StackPanel>
-                    </materialDesign:Card>
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                        <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                            <StackPanel>
+                                <TextBlock Text="Projets en cours" FontWeight="Bold"/>
+                                <TextBlock FontSize="24" x:Name="nbEncours"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                            <StackPanel>
+                                <TextBlock Text="Projets terminés" FontWeight="Bold"/>
+                                <TextBlock FontSize="24" x:Name="nbFini"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                            <StackPanel>
+                                <TextBlock Text="Tâches à faire" FontWeight="Bold"/>
+                                <TextBlock FontSize="24" x:Name="nbAFaire"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="10" Padding="10" Width="200" Height="100">
+                            <StackPanel>
+                                <TextBlock Text="Points" FontWeight="Bold"/>
+                                <TextBlock FontSize="24" x:Name="nbPoints"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        
 
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    </StackPanel>
 
-                    <materialDesign:Card Grid.Column="0" Margin="10" Padding="10" Cursor="Hand">
-                        <StackPanel>
-                            <TextBlock Text="À faire" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="TodoList"
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:Card Grid.Column="0" Margin="10" Padding="10" Cursor="Hand">
+                            <StackPanel>
+                                <TextBlock Text="À faire" FontWeight="Bold" FontSize="16"/>
+                                <ListView x:Name="TodoList"
                                       AllowDrop="True"
                                       Background="Transparent"
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
                                       Drop="ListView_Drop" MouseDoubleClick="TodoList_MouseDoubleClick"/>
-                        </StackPanel>
-                    </materialDesign:Card>
+                            </StackPanel>
+                        </materialDesign:Card>
 
-                    <materialDesign:Card Grid.Column="1" Margin="10" Padding="10" Cursor="Hand">
-                        <StackPanel>
-                            <TextBlock Text="En cours" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="DoingList"
+                        <materialDesign:Card Grid.Column="1" Margin="10" Padding="10" Cursor="Hand">
+                            <StackPanel>
+                                <TextBlock Text="En cours" FontWeight="Bold" FontSize="16"/>
+                                <ListView x:Name="DoingList"
                                       AllowDrop="True"
                                       Background="Transparent"
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
                                       Drop="ListView_Drop" MouseDoubleClick="DoingList_MouseDoubleClick"/>
-                        </StackPanel>
-                    </materialDesign:Card>
+                            </StackPanel>
+                        </materialDesign:Card>
 
-                    <materialDesign:Card Grid.Column="2" Margin="10" Padding="10" Cursor="Hand">
-                        <StackPanel>
-                            <TextBlock Text="Terminé" FontWeight="Bold" FontSize="16"/>
-                            <ListView x:Name="DoneList"
+                        <materialDesign:Card Grid.Column="2" Margin="10" Padding="10" Cursor="Hand">
+                            <StackPanel>
+                                <TextBlock Text="Terminé" FontWeight="Bold" FontSize="16"/>
+                                <ListView x:Name="DoneList"
                                       AllowDrop="True"
                                       Background="Transparent"
                                       BorderThickness="0"
                                       MinHeight="300"
                                       PreviewMouseMove="ListView_PreviewMouseMove"
                                       Drop="ListView_Drop" MouseDoubleClick="DoneList_MouseDoubleClick"/>
-                        </StackPanel>
-                    </materialDesign:Card>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </DockPanel>
         </DockPanel>
-    </DockPanel>
+        
+
+        <materialDesign:DialogHost.DialogContent>
+            <Border Background="White" Padding="20" CornerRadius="8">
+                <StackPanel>
+                    <TextBlock x:Name="DialogTitle" FontWeight="Bold" FontSize="20" TextAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="DialogMessage" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,20"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" >
+                        <Button Content="Oui" Width="80" Margin="5" />
+                        <Button Content="Non" Width="80" Margin="5"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </materialDesign:DialogHost.DialogContent>
+    </materialDesign:DialogHost>
+
 </Window>

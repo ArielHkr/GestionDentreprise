@@ -58,7 +58,7 @@ namespace GestionDentreprise
                 utilisateur.MettreAJourMonProfil();
 
                 MessageBox.Show("Votre profil a été mis à jour avec succès !", "Succès",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                              MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception ex)

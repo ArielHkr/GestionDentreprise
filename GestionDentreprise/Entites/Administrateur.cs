@@ -65,7 +65,7 @@
         /// <param name="employe">L'employé à embaucher.</param>
         public void EmbaucherEmploye(Employe employe)
         {
-            GestionDesDonnees.EmbaucherEmploye(employe);
+            GestionDesDonnees.AjouterUnEmploye(employe);
         }
 
         /// <summary>

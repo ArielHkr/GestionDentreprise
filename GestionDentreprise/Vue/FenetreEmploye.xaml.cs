@@ -1,4 +1,5 @@
 ﻿using GestionDentreprise.Entites;
+using MaterialDesignThemes.Wpf;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -90,20 +91,14 @@ namespace GestionDentreprise
             fenetreInfo.ShowDialog();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult resultat = MessageBox.Show(
-                "Voulez-vous vraiment vous déconnecter ?",
-                "Confirmation de déconnexion",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
-
-            if (resultat == MessageBoxResult.Yes)
+            bool? resultat = await ShowConfirmationDialogAsync("Déconnexion", "Voulez-vous vraiment vous déconnecter ?");
+            if (resultat == true)
             {
                 MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
                 this.Close();
+                mainWindow.Show();
             }
         }
 
@@ -129,6 +124,59 @@ namespace GestionDentreprise
                 AfficherTache afficher_Tache = new AfficherTache(tache);
                 afficher_Tache.ShowDialog();
             }
+        }
+        private async Task<bool?> ShowConfirmationDialogAsync(string title, string message)
+        {
+            var stack = new StackPanel { Margin = new Thickness(20) };
+
+            stack.Children.Add(new TextBlock
+            {
+                Text = title,
+                FontWeight = FontWeights.Bold,
+                FontSize = 22,
+                TextAlignment = TextAlignment.Center,
+                Margin = new Thickness(0, 0, 0, 10)
+            });
+
+            stack.Children.Add(new TextBlock
+            {
+                Text = message,
+                FontSize = 16,
+                TextAlignment = TextAlignment.Center,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 0, 0, 25)
+            });
+
+            var panel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            var btnYes = new Button { Content = "Oui", Width = 90, Margin = new Thickness(0, 0, 15, 0) };
+            var btnNo = new Button { Content = "Non", Width = 90 };
+
+            panel.Children.Add(btnYes);
+            panel.Children.Add(btnNo);
+            stack.Children.Add(panel);
+
+            var tcs = new TaskCompletionSource<bool?>();
+
+            btnYes.Click += (s, e) =>
+            {
+                tcs.SetResult(true);
+                DialogHost.CloseDialogCommand.Execute(null, null);
+            };
+
+            btnNo.Click += (s, e) =>
+            {
+                tcs.SetResult(false);
+                DialogHost.CloseDialogCommand.Execute(null, null);
+            };
+
+            await DialogHost.Show(stack, "AppDialog");
+
+            return await tcs.Task;
         }
     }
 }
