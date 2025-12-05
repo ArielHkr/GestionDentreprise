@@ -18,7 +18,7 @@ namespace GestionDentreprise.Entites
                 cnx.Open();
                 string query = @"SELECT id_utilisateur, nom, prenom, email, 
                                 mot_de_passe_hash, mot_de_passe_salt,
-                                role, date_embauche, actif 
+                                role, date_embauche, actif, points
                          FROM utilisateurs 
                          WHERE email = @Email AND actif = 1;";
 
@@ -35,6 +35,7 @@ namespace GestionDentreprise.Entites
                 string role = reader.GetString("role");
                 bool actif = reader.GetBoolean("actif");
                 DateTime date_embauche = reader.GetDateTime("date_embauche");
+                int points = reader.IsDBNull(reader.GetOrdinal("points")) ? 0 : reader.GetInt32("points");
 
                 byte[] hashFromDb = Convert.FromBase64String(reader.GetString("mot_de_passe_hash"));
                 byte[] saltFromDb = Convert.FromBase64String(reader.GetString("mot_de_passe_salt"));
@@ -52,7 +53,7 @@ namespace GestionDentreprise.Entites
                 }
                 else
                 {
-                    var emp = new Employe(id, nom, prenom, email, "", role, actif);
+                    var emp = new Employe(id, nom, prenom, email, "", role, actif, points);
                     emp.DateEmbauche = date_embauche;
                     return emp;
                 }
@@ -67,6 +68,7 @@ namespace GestionDentreprise.Entites
                 cnx.Close();
             }
         }
+
 
 
         /// <summary>
@@ -498,6 +500,30 @@ namespace GestionDentreprise.Entites
                 cnx.Close();
             }
         }
+        public static void MettreAJourEtatTache(int idTache, string etat)
+        {
+            GestionBD cnx = new GestionBD();
+            try
+            {
+                cnx.Open();
+                string query = @"UPDATE Taches SET etat = @Etat WHERE id_tache = @IdTache;";
+                using (var cmd = new MySqlCommand(query, cnx.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@Etat", etat);
+                    cmd.Parameters.AddWithValue("@IdTache", idTache);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la mise à jour de l'état de la tâche : " + ex.Message);
+            }
+            finally
+            {
+                cnx.Close();
+            }
+        }
+
 
     }
 }

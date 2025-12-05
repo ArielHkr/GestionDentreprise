@@ -36,7 +36,6 @@ namespace GestionDentreprise
                     MessageBox.Show("Impossible de récupérer l'employé du mois.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                MettreAJourCompteurs();
             }
             catch
             {
@@ -74,6 +73,8 @@ namespace GestionDentreprise
             {
                 MessageBox.Show("Erreur lors du chargement des tâches dans les listes.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            MettreAJourCompteurs();
+
         }
 
         private void MettreAJourCompteurs()
@@ -135,12 +136,14 @@ namespace GestionDentreprise
                 else
                 {
                     ChargerTaches();
+
                 }
             }
             catch
             {
                 MessageBox.Show("Impossible d'ouvrir la gestion des tâches.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)

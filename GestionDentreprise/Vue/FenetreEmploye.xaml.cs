@@ -1,11 +1,12 @@
 ﻿using GestionDentreprise.Entites;
+using GestionDentreprise.Vue;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Threading.Tasks;
 
 namespace GestionDentreprise
 {
@@ -22,12 +23,13 @@ namespace GestionDentreprise
                 _employe = emp;
                 taches = _employe.RecupererTaches();
                 ChargerTaches();
-                MettreAJourCompteurs();
             }
             catch
             {
                 MessageBox.Show("Erreur lors de l'initialisation de la fenêtre employé.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            MettreAJourCompteurs();
+
         }
 
         private void ChargerTaches()
@@ -54,6 +56,8 @@ namespace GestionDentreprise
             {
                 MessageBox.Show("Erreur lors du chargement des tâches.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            MettreAJourCompteurs();
+
         }
 
         private void ListView_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -82,6 +86,8 @@ namespace GestionDentreprise
                 var listeCible = sender as ListView;
                 if (tache == null || listeCible == null) return;
 
+                bool etaitTerminee = DoneList.Items.Contains(tache);
+
                 TodoList.Items.Remove(tache);
                 DoingList.Items.Remove(tache);
                 DoneList.Items.Remove(tache);
@@ -91,13 +97,14 @@ namespace GestionDentreprise
                 else if (listeCible.Name == "DoingList")
                     tache.Etat = "En cours";
                 else if (listeCible.Name == "DoneList")
-                {
                     tache.Etat = "Terminée";
-                    if (DateTime.Now <= tache.DateLimite)
-                        _employe.Points += 100;
 
-                    GestionDesDonnees.MettreAJourPointsEmploye(_employe.Id, _employe.Points);
-                }
+                GestionDesDonnees.MettreAJourEtatTache(tache.IdTache, tache.Etat);
+
+                if (listeCible.Name == "DoneList" && DateTime.Now <= tache.DateLimite)
+                    _employe.Points += 100;
+                else if (etaitTerminee && listeCible.Name != "DoneList" && DateTime.Now <= tache.DateLimite)
+                    _employe.Points -= 100;
 
                 listeCible.Items.Add(tache);
                 MettreAJourCompteurs();
@@ -107,6 +114,8 @@ namespace GestionDentreprise
                 MessageBox.Show("Erreur lors du dépôt de la tâche.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
 
         private void MettreAJourCompteurs()
         {
@@ -249,6 +258,19 @@ namespace GestionDentreprise
             {
                 MessageBox.Show("Erreur lors de l'affichage de la boîte de confirmation.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
+            }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Tutoriel tutoriel = new Tutoriel();
+                tutoriel.ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show("Impossible d'ouvrir le tutoriel.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
