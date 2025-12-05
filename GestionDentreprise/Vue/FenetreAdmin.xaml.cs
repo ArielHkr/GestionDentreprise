@@ -111,8 +111,9 @@ namespace GestionDentreprise
                 if (resultat == true)
                 {
                     MainWindow mainWindow = new MainWindow();
-                    mainWindow.ShowDialog();
                     this.Close();
+
+                    mainWindow.Show();
                 }
             }
             catch
