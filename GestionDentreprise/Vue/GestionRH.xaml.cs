@@ -87,8 +87,16 @@ namespace GestionDentreprise
 
             if (result == MessageBoxResult.Yes)
             {
-                Admin.VirerEmploye(empAffiche.Id);
-                MessageBox.Show("L’employé a été rendu inactif.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    Admin.VirerEmploye(empAffiche.Id);
+                    MessageBox.Show("L’employé a été rendu inactif.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch
+                {
+                    MessageBox.Show("Erreur lors du processus: ", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
             this.Close();
         }

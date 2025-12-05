@@ -23,7 +23,7 @@ namespace GestionDentreprise.Vue
             }
             else
             {
-                MessageBox.Show($"Fichier vidéo introuvable : {cheminVideo}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Erreur lors du chargement de la video.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

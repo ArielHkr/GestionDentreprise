@@ -51,14 +51,14 @@ namespace GestionDentreprise
             try
             {
                 Admin.EmbaucherEmploye(emp);
-                MessageBox.Show("L’employé a été embauché avec succès.", "Succès",
+                MessageBox.Show("L’employé a été ajouté avec succès.", "Succès",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
                 this.Close();
             }
-            catch (Exception ex)
+            catch
             {
-                lblMessage.Text = "Erreur : " + ex.Message;
+                MessageBox.Show("Erreur lors de l'ajout de l'employé: ", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

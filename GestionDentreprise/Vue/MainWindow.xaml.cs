@@ -38,29 +38,35 @@ namespace GestionDentreprise
                 return;
             }
 
-            var user = Utilisateur.SeConnecter(email, password);
-
-            if (user != null)
+            try
             {
-                await ShowDialogAsync("Connexion réussie", $"Bienvenue {user.Nom} {user.Prenom} ({user.Role})");
-
-                if (user is Administrateur)
+                var user = Utilisateur.SeConnecter(email, password);
+                if (user != null)
                 {
-                    new FenetreAdmin((Administrateur)user).Show();
-                }
-                else if (user is Employe)
-                {
-                    new FenetreEmploye((Employe)user).Show();
-                }
+                    await ShowDialogAsync("Connexion réussie", $"Bienvenue {user.Nom} {user.Prenom} ({user.Role})");
 
-                Close();
+                    if (user is Administrateur)
+                    {
+                        new FenetreAdmin((Administrateur)user).Show();
+                    }
+                    else if (user is Employe)
+                    {
+                        new FenetreEmploye((Employe)user).Show();
+                    }
+
+                    Close();
+                }
+                else
+                {
+                    ShowSnackbar("Email ou mot de passe incorrect");
+                    txtUser.Text = "";
+                    txtPassword.Password = "";
+                    txtUser.Focus();
+                }
             }
-            else
+            catch
             {
-                ShowSnackbar("Email ou mot de passe incorrect");
-                txtUser.Text = "";
-                txtPassword.Password = "";
-                txtUser.Focus();
+                MessageBox.Show("Erreur lors de l'initialisation de la fenêtre.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

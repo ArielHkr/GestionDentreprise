@@ -47,9 +47,16 @@ namespace GestionDentreprise
 
             Tache tache = new Tache(txtTitre.Text, txtDescription.Text, cmbPriorite.Text, dpDateLimite.SelectedDate.Value);
 
+            try
+            {
+                administrateur.AjouterUneTache(tache);
+                MessageBox.Show("Tâche ajoutée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            administrateur.AjouterUneTache(tache);
-            MessageBox.Show("Tâche ajoutée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch
+            {
+                MessageBox.Show("Erreur lors de l'ajout de la tâche.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             DialogResult = true;
             this.Close();
