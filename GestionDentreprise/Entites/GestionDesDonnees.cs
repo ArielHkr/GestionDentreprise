@@ -356,21 +356,22 @@ namespace GestionDentreprise.Entites
                     string nom = reader.GetString("nom");
                     string prenom = reader.GetString("prenom");
                     string email = reader.GetString("email");
-                    string mdp = reader.GetString("mot_de_passe");
+                    string mdp = reader.GetString("mot_de_passe_hash");
                     string role = reader.GetString("role");
                     bool actif = reader.GetBoolean("actif");
-
-                    Utilisateur u;
+                  
+                    Utilisateur utilisateur;
                     if (role == "Administrateur")
                     {
-                        u = new Administrateur(id, nom, prenom, email, mdp, role, actif);
+                        utilisateur = new Administrateur(id, nom, prenom, email, mdp, role, actif);
                     }
                     else
                     {
-                        u = new Employe(id, nom, prenom, email, mdp, role, actif);
+                        utilisateur = new Employe(id, nom, prenom, email, mdp, role, actif);
                     }
+                    utilisateur.DateEmbauche = reader.GetDateTime("date_embauche");
 
-                    resultats.Add(u);
+                    resultats.Add(utilisateur);
                 }
             }
             finally

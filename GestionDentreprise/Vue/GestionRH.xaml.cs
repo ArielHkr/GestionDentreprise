@@ -47,6 +47,7 @@ namespace GestionDentreprise
         private void lstEmployeRecherche_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstEmployeRecherche.SelectedItem == null) return;
+
             AfficherEmploye((Employe)lstEmployeRecherche.SelectedItem);
             
         }

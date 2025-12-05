@@ -20,7 +20,7 @@ namespace GestionDentreprise
             administrateur = admin;
             ChargerTaches();
             Employe? emp = GestionDesDonnees.ObtenirEmployeDuMoisBD();
-            if (emp != null)
+            if (emp != null && emp.Points >0)
             {
                 txtNom_EMois.Text = emp.ToString();
                 txtPoints.Text = emp.Points.ToString() + " pts";
