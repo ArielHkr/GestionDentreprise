@@ -63,11 +63,25 @@ namespace GestionDentreprise
             DoneList.Items.Remove(tache);
 
             if (listeCible.Name == "TodoList")
+            {
                 tache.Etat = "Non commencée";
+            }
             else if (listeCible.Name == "DoingList")
+            {
                 tache.Etat = "En cours";
+            }
             else if (listeCible.Name == "DoneList")
+            {
                 tache.Etat = "Terminée";
+
+                if (DateTime.Now <= tache.DateLimite)
+                {
+                    _employe.Points += 100;
+                }
+               
+
+                GestionDesDonnees.MettreAJourPointsEmploye(_employe.Id, _employe.Points);
+            }
 
             listeCible.Items.Add(tache);
             MettreAJourCompteurs();
@@ -79,10 +93,8 @@ namespace GestionDentreprise
             nbEncours.Text = DoingList.Items.Count.ToString();
             nbFini.Text = DoneList.Items.Count.ToString();
 
-            _employe.Points = DoneList.Items.Count * 100;
             nbPoints.Text = _employe.Points.ToString();
             GestionDesDonnees.MettreAJourPointsEmploye(_employe.Id, _employe.Points);
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -125,6 +137,7 @@ namespace GestionDentreprise
                 afficher_Tache.ShowDialog();
             }
         }
+
         private async Task<bool?> ShowConfirmationDialogAsync(string title, string message)
         {
             var stack = new StackPanel { Margin = new Thickness(20) };

@@ -401,6 +401,10 @@ namespace GestionDentreprise.Entites
                     cmd.ExecuteNonQuery();
                 }
             }
+            catch(Exception ex) {   
+            
+                throw new Exception(ex.ToString());
+            }
             finally
             {
                 cnx.Close();
