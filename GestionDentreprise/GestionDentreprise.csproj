@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Tutoriel.mp4" />
     <None Remove="Vue\images\icone-gestion.ico" />
     <None Remove="Vue\images\image-connexion.jpg" />
   </ItemGroup>
@@ -27,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Tutoriel.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Vue\images\icone-gestion.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
